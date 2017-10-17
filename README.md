@@ -6,6 +6,7 @@ Stuff to be done
   - Code Home page
     a. Make the HEADER.jsp bar with links to each page. 
        Header must be transferable to each page with include (like php)
+       
 #2
   - Code Department Landing jsp
   - Code Department Entry servlet with necessary helper classes
