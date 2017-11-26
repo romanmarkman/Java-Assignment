@@ -1,4 +1,4 @@
-package HelperClasses;
+package helpers;
 
 public final class EmployeeEntryHelper {
 	

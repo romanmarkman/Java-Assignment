@@ -1,5 +1,5 @@
 package servlets;
-
+import helpers.EmployeeEntryHelper;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
-import HelperClasses.EmployeeEntryHelper;
+
+
 import utilities.DatabaseAccess;
 import java.sql.*;
 import java.sql.*;
