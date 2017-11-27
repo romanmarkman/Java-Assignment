@@ -52,10 +52,12 @@ public class Login extends HttpServlet {
 				&& request.getParameter("action").equals("logout"))) {
 			// if the session is new, set loggedIn to false.
 			session.setAttribute(loggedInKey, loggedIn);
+			session.removeAttribute("loggedInUser");
 			
 			// Display the login page.
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
-		} else if (session.getAttribute("loggedIn") != null && (Boolean)session.getAttribute("loggedIn") == true) {
+		} else if (ValidationHelper.isNotNull(session.getAttribute("loggedIn"))
+				&& (Boolean)session.getAttribute("loggedIn") == true) {
 			response.sendRedirect(request.getContextPath() + "/home");
 		} else {
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
@@ -80,6 +82,7 @@ public class Login extends HttpServlet {
 				&& request.getParameter("action").equals("logout"))) {
 			// if the session is new, set loggedIn to false.
 			session.setAttribute(loggedInKey, loggedIn);
+			session.removeAttribute("loggedInUser");
 			
 			// Display the login page.
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
