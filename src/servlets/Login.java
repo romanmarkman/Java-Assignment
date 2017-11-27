@@ -29,6 +29,8 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		
 		// Create a session object if it is already not created.
 		HttpSession session = request.getSession(true);
 			
@@ -36,10 +38,12 @@ public class Login extends HttpServlet {
 		String loggedInKey = new String("loggedIn");
 		Boolean loggedIn = false;
 		
-		if ((request.getParameter("action") != null && request.getParameter("action").equals("logout"))) {
+		if (session.isNew() || (request.getParameter("action") != null && request.getParameter("action").equals("logout"))) {
 			// if the session is new set loggedIn to false.
 			session.setAttribute(loggedInKey, loggedIn);
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+		} else if (session.getAttribute("loggedIn") != null && (Boolean)session.getAttribute("loggedIn").equals(true)) {
+			response.sendRedirect(request.getContextPath() + "/home");
 		} else {
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 		}
@@ -59,7 +63,7 @@ public class Login extends HttpServlet {
 		Boolean loggedIn = false;
 		
 		// When page is first loaded, check whether the session is new
-		if (session.isNew() || (request.getParameter("action") != null && request.getParameter("action") == "logout")) {
+		if (session.isNew() || (request.getParameter("action") != null && request.getParameter("action").equals("logout"))) {
 			// if the session is new set loggedIn to false.
 			session.setAttribute(loggedInKey, loggedIn);
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
@@ -78,7 +82,7 @@ public class Login extends HttpServlet {
 				
 				Statement stmt = connect.createStatement();
 				ResultSet admin = stmt.executeQuery(queryString);
-				admin.first();
+				admin.next();
 				
 				// Validate username and password
 				if (request.getParameter("username").toLowerCase().equals(admin.getString("username"))
@@ -89,7 +93,7 @@ public class Login extends HttpServlet {
 					response.sendRedirect(request.getContextPath() + "/home");;
 				} else if((request.getParameter("username") != null || request.getParameter("password") != null)
 					&& !(request.getParameter("username").isEmpty() || request.getParameter("username").isEmpty())) {
-					request.setAttribute("errorMessage", admin.getString("username") + " " + admin.getString("password") + " " + request.getParameter("username") + request.getParameter("password"));
+					request.setAttribute("errorMessage", "Invalid Username or Password.");
 					request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 				} else {
 					request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
