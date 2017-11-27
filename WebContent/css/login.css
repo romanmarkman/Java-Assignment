@@ -1,0 +1,36 @@
+@charset "ISO-8859-1";
+
+#login-form {
+	margin: 25px;
+	width: 400px;
+	height: 150px;
+	padding: 50px;
+	background: rgba(200, 200, 200, 1.0);
+	border-radius: 3px;
+	border: 1px solid rgba(255, 255, 255, 0.7);
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+}
+
+#labels, #input-boxes {
+	float: left;
+}
+
+#labels {
+	width: 35%;
+	text-align: right;
+}
+
+#input-boxes {
+	width: calc(65% - 25px);
+	padding-left: 25px;
+}
+
+#labels > label,
+#input-boxes > input {
+	display: block;
+}
+
+#login {
+	padding: 25px;
+	text-align: center;
+}

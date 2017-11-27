@@ -1,0 +1,50 @@
+@charset "ISO-8859-1";
+
+div.errorMsg{
+	color: red;
+	margin 0;
+}
+
+.dialog{
+	position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.dialogContent{
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 40%;
+}
+
+.dialogContent .dialogBody p{
+	text-align:center;
+}
+.close{
+	color: black;
+	float: right;
+	font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus{
+	cursor:pointer;	
+}
+
+.dialogHeader{
+	padding: 2px 16px;
+	background-color: #5cb85c;
+	color: white;	
+}
+
+.dialogBody {
+	padding: 2px 16px;
+}
