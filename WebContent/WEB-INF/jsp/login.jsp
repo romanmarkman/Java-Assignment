@@ -13,6 +13,7 @@
 	<div id="login-div" class="centered">
 		<span class='error-message'>${errorMessage}</span>
 		<form action="login" method="POST" name="login-form" id="login-form">
+			<h1>Login</h1>
 			<div id="labels">
 				<label for="username">Username:</label>
 				<br/><label for="password">Password:</label>

@@ -1,11 +1,16 @@
 @charset "ISO-8859-1";
 
 /* General Element Styles */
+html * {
+	font-family: Helvetica;
+	color: rgb(29, 26, 33);
+	text-shadow: 0 0 0.01em rgba(29, 26, 33, 0.5);
+}
+
 body {
 	margin: 0;
 	padding: 0;
 	background: rgba(150, 150, 150, 1.0);
-	font-family: Helvetica;
 	font-size: 1.2em;
 }
 
@@ -108,6 +113,11 @@ input[type=reset]:active, input[type=reset]:focus {
 	animation: fade-in ease-in-out 0.1s;
 }
 
+#header * {
+	font-size: 0.88em !important;
+	color: white !important;
+}
+
 #header-nav {
 	float: left;
 }
@@ -128,8 +138,6 @@ input[type=reset]:active, input[type=reset]:focus {
 #header-nav > ul > li > a {
 	display: block;
     padding: 0 20px;
-    color: white;
-    font-size: 0.7em;
     text-decoration: none;
     transition: all ease-in 0.15s;
 }
@@ -140,9 +148,14 @@ input[type=reset]:active, input[type=reset]:focus {
     transition: all ease-in 0.15s;
 }
 
-#user-panel,
-#user-panel > form {
+#user-panel {
 	float: right;
+	height: 32px;
+	line-height: 32px;
+}
+
+#user-panel > form {
+	float: left;
 	height: 32px;
 	line-height: 32px;
 }
@@ -151,8 +164,6 @@ input[type=reset]:active, input[type=reset]:focus {
 #user-panel > form > a {
 	display: block;
     padding: 0 20px;
-    color: white;
-    font-size: 0.7em;
     text-decoration: none;
     transition: all ease-in 0.15s;
 }
@@ -162,6 +173,15 @@ input[type=reset]:active, input[type=reset]:focus {
 	background-color: #900;  
     text-decoration: none;
     transition: all ease-in 0.15s;
+}
+
+#user-panel > #welcome-user {
+	margin: 0 10px;
+	float: left;
+}
+
+#user-panel > #welcome-user > #user_name {
+	font-weight: bold;
 }
 
 @keyframes fade-in {
