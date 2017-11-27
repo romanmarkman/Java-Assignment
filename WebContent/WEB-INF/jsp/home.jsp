@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="container">
-		<h1 class='centered'>Welcome to our website! You may now begin your tasks.</h1>
+		<h1 class="text-align-center">Welcome to our website! You may now begin your tasks.</h1>
 	</div>
 </body>
 </html>
