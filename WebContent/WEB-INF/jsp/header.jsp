@@ -12,7 +12,7 @@
 	</nav>
 	<div id="user-panel">
 		<% 
-			if (((Boolean)session.getAttribute("loggedIn")) == false) {
+			if (session.getAttribute("loggedIn") != null && ((Boolean)session.getAttribute("loggedIn")) == false) {
 				out.println("<a href='"+ request.getContextPath() +"/login'>Log In</a>");
 			}
 			else {
