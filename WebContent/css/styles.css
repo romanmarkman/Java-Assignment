@@ -14,6 +14,12 @@ body {
 	font-size: 1.2em;
 }
 
+img {
+	max-width: 100%;
+	height: auto;
+	user-select: none;
+}
+
 input:not([type=hidden]) {
 	text-align: right;
 	min-width: 100px;
@@ -70,21 +76,15 @@ input[type=reset]:active, input[type=reset]:focus {
 	margin: 62px 100px;
 	min-width: 700px;
 	padding: 50px;
-	background: rgba(200, 200, 200, 0.85);
-	border-radius: 3px;
+	background: rgba(225, 225, 225, 0.85);
 	border: 1px solid rgba(255, 255, 255, 0.7);
-	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5),
-				inset 0 0 7px rgba(255, 255, 255, 0.4);
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2),
+				inset 0 0 30px rgba(128, 147, 178, 0.5);
 	animation: slide-up ease-in-out 0.5s;
 }
 
 .container > * {
 	animation: slide-up ease-in-out 0.3s;
-}
-
-.container > img {
-	max-width: 100%;
-	height: auto;
 }
 
 .centered {
@@ -118,7 +118,7 @@ input[type=reset]:active, input[type=reset]:focus {
 	height: 32px;
 	background-color: rgba(102, 0, 0, 0.9);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.7);
-	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 	animation: fade-in ease-in-out 0.1s;
 }
 
