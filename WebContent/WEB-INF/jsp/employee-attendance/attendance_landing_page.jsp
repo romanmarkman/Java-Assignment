@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="container">
-		<img src="/images/underconstruction.png">
+		<img src="${pageContext.request.contextPath}/images/underconstruction.png">
 	</div>
 </body>
 </html>
