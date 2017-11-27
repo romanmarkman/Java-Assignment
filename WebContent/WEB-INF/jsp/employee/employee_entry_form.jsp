@@ -26,21 +26,21 @@
 		ResultSet resultSet = statement.executeQuery("Select name from department");
 	%>
 	
-	<div class='container centered'>
-		<h1>Employee Entry</h1>
-		
-		<form action="employee_entry" method="POST" name="employeeForm" id="ePForm">
-			First Name: <input type="text" name="firstName" value="${validFN}"/>
+	<div id="employee-entry-div" class='centered'>
+		<form action="employee_entry" method="POST" name="employeeForm" id="ePForm" class="container">
+			<h1>Employee Entry</h1>
+			<label for="firstName">First Name: </label><input type="text" name="firstName" value="${validFN}"/>
 			<br/><div class="errorMsg">${errorMessage}</div>
-			<br/>Last Name: <input type="text" name="lastName" value="${validLN}"/>
+			<br/><label for="lastName">Last Name: </label><input type="text" name="lastName" value="${validLN}"/>
 			<br/><div class="errorMsg">${errorMessage2}</div>
-			<br/>Employee #: <input type="text" name="employeeNumber" value="${validEN}"/>
+			<br/><label for="employeeNumber">Employee #: </label><input type="text" name="employeeNumber" value="${validEN}"/>
 			<br/><div class="errorMsg">${errorMessage3}</div>
-			<br/>Email: <input type="text" name="email" value="${validEmail}"/>
+			<br/><label for="email">Email: </label><input type="text" name="email" value="${validEmail}"/>
 			<br/><div class="errorMsg">${errorMessage4}</div>
 			<br/>
+			
 			<% String message = (String)request.getAttribute("confirmMessage"); 
-			   if(message != null) { %>
+			   if (message != null) { %>
 			<!-- Modal from https://www.w3schools.com/howto/howto_css_modals.asp -->
 			<div id="dialogBox" class ="dialog">
 				<div class="dialogContent">
