@@ -1,3 +1,11 @@
+/*
+* Project: COMP3095_Insert_Team_Name
+* Assignment:  Assignment 1
+* Author(s): Jeff, Jullian, Roman, Kevin, Andrew
+* Student Number: 100872220, 100998164, 100772900, 101015906, 101035265
+* Date: Oct 20, 2017
+* Description: Servlet that handles Employee landing.
+*/
 package servlets;
 
 import java.io.IOException;
