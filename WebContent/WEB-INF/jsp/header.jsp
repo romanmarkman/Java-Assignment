@@ -9,6 +9,7 @@
 			<li><a href="${pageContext.request.contextPath}/employee">Employee</a></li>
 			<li><a href="${pageContext.request.contextPath}/group">Group</a></li>
 			<li><a href="${pageContext.request.contextPath}/reports">Reports</a></li>
+			<li><a href="${pageContext.request.contextPath}/attendance">Attendance</a></li>
 		</ul>
 	</nav>
 	<div id="user-panel">
