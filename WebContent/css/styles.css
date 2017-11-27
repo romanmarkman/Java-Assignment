@@ -181,6 +181,7 @@ input[type=reset]:active, input[type=reset]:focus {
 }
 
 #user-panel > #welcome-user > #user_name {
+	user-select: none;
 	font-weight: bold;
 }
 
