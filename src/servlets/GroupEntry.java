@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class GroupEntry
  */
-@WebServlet("/GroupEntry")
+@WebServlet("/group_entry")
 public class GroupEntry extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -19,23 +19,20 @@ public class GroupEntry extends HttpServlet {
      */
     public GroupEntry() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
+    /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/group/group_entry_form.jsp").forward(request, response);
 	}
 
 }

@@ -1,0 +1,170 @@
+@charset "ISO-8859-1";
+
+/* General Element Styles */
+body {
+	margin: 0;
+	padding: 0;
+	background: rgba(150, 150, 150, 1.0);
+	font-family: Helvetica;
+	font-size: 1.2em;
+}
+
+input:not([type=hidden]) {
+	text-align: right;
+	min-width: 100px;
+	min-height: 1.2em;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.1);
+	transition: all ease-in 0.15s;
+	font-family: Helvetica;
+}
+
+input:not([type=hidden]):hover {
+	border: 1px solid rgba(7, 147, 255, 0.5);
+	transition: all ease-in 0.15s;
+}
+
+input:not([type=hidden]):active, input:not([type=hidden]):focus {
+  	border: 1px solid rgba(7, 147, 255, 1.0);
+  	outline: none;
+  	transition: all ease-in 0.15s;
+}
+
+button, input[type=submit], input[type=reset] {
+	padding: 10px;
+	min-width: 100px;
+	background: rgba(215, 215, 215, 1.0);
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	border-radius: 3px;
+	text-align: center;
+	transition: all ease-in 0.15s;
+	font-family: Helvetica;
+	transition: all ease-in 0.15s;
+}
+
+button:hover, input[type=submit]:hover, input[type=reset]:hover {
+	border: 1px solid rgba(7, 147, 255, 0.5);
+	background: rgba(230, 230, 230, 1.0);
+	transition: all ease-in 0.15s;
+}
+
+button:active, button:focus, input[type=submit]:active, input[type=submit]:focus,
+input[type=reset]:active, input[type=reset]:focus {
+	background: rgba(190, 190, 190, 1.0);
+  	border: 1px solid rgba(7, 147, 255, 1.0);
+  	outline: none;
+  	transition: all ease-in 0.15s;
+}
+
+/**
+ * Class and ID Styles
+ **/
+.container {
+	margin: 25px;
+	margin-top: 57px;
+	min-width: 700px;
+	min-height: 500px;
+	padding: 50px;
+	background: rgba(200, 200, 200, 1.0);
+	border-radius: 3px;
+	border: 1px solid rgba(255, 255, 255, 0.7);
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+}
+
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.clearfix {
+	clear: both;
+}
+
+.error-message {
+	display: inline-block;
+	min-width: 100%;
+	min-height: 0px;
+	text-align: center;
+	color: red;
+}
+
+#header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 32px;
+	background-color:#600;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	animation: fade-in ease-in-out 0.1s;
+}
+
+#header-nav {
+	float: left;
+}
+
+#header-nav > ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	height: 32px;
+}
+
+#header-nav > ul > li {
+	float: left;
+	height: 32px;
+	line-height: 32px;
+}
+
+#header-nav > ul > li > a {
+	display: block;
+    padding: 0 20px;
+    color: white;
+    font-size: 0.7em;
+    text-decoration: none;
+    transition: all ease-in 0.15s;
+}
+
+#header-nav > ul > li > a:hover {
+	background-color: #900;  
+    text-decoration: none;
+    transition: all ease-in 0.15s;
+}
+
+#user-panel,
+#user-panel > form {
+	float: right;
+	height: 32px;
+	line-height: 32px;
+}
+
+#user-panel > a,
+#user-panel > form > a {
+	display: block;
+    padding: 0 20px;
+    color: white;
+    font-size: 0.7em;
+    text-decoration: none;
+    transition: all ease-in 0.15s;
+}
+
+#user-panel > a:hover,
+#user-panel > form > a:hover {
+	background-color: #900;  
+    text-decoration: none;
+    transition: all ease-in 0.15s;
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
