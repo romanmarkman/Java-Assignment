@@ -1,11 +1,24 @@
 @charset "ISO-8859-1";
 
-div.errorMsg{
+#ePForm.container {
+	animation: slide-up ease-in-out 0.9s;
+}
+
+#ePForm.container > * {
+	animation: slide-up ease-in-out 0.7s;
+}
+
+#ePForm > h1 {
+	text-align: center;
+	font-size: 1.5em;
+}
+
+div.errorMsg {
 	color: red;
 	margin 0;
 }
 
-.dialog{
+.dialog {
 	position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
@@ -17,7 +30,7 @@ div.errorMsg{
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.dialogContent{
+.dialogContent {
     background-color: #fefefe;
     margin: auto;
     padding: 0;
@@ -25,21 +38,22 @@ div.errorMsg{
     width: 40%;
 }
 
-.dialogContent .dialogBody p{
-	text-align:center;
+.dialogContent .dialogBody p {
+	text-align: center;
 }
-.close{
+
+.close {
 	color: black;
 	float: right;
 	font-size: 28px;
     font-weight: bold;
 }
 
-.close:hover, .close:focus{
-	cursor:pointer;	
+.close:hover, .close:focus {
+	cursor: pointer;	
 }
 
-.dialogHeader{
+.dialogHeader {
 	padding: 2px 16px;
 	background-color: #5cb85c;
 	color: white;	
