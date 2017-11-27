@@ -3,8 +3,9 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import ="java.sql.*" %>
 <%@ page import ="javax.sql.*" %>
-
-
+<%@ page import ="helpers.ValidationHelper" %>
+<% if (ValidationHelper.isNotNull(session.getAttribute("loggedIn"))
+	   && ((Boolean)session.getAttribute("loggedIn")) == true) { %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%! String title = "Employee Entry"; %>
 <html>
@@ -115,3 +116,7 @@
 	</div>
 </body>
 </html>
+<% } else { 
+	   response.sendRedirect(request.getContextPath() + "/login");
+   }
+%>

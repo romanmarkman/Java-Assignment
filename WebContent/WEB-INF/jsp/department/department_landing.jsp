@@ -1,5 +1,8 @@
+<%@ page import="helpers.ValidationHelper" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<% if (ValidationHelper.isNotNull(session.getAttribute("loggedIn"))
+	   && ((Boolean)session.getAttribute("loggedIn")) == true) { %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%! String title = "Department Landing"; %>
 <html>
@@ -15,3 +18,7 @@
 	</div>
 </body>
 </html>
+<% } else { 
+	   response.sendRedirect(request.getContextPath() + "/login");
+   }
+%>
