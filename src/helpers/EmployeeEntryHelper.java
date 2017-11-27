@@ -12,7 +12,7 @@ public final class EmployeeEntryHelper {
 	}
 	
 	public static boolean isAlphabetic(String input) {
-		return input.matches( "[A-Z][a-zA-Z]*" );
+		return input.matches( "[a-zA-Z]*" );
 	}
 	
 	public static boolean isEmail(String input) {
