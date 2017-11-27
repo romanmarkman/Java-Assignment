@@ -8,6 +8,7 @@
 */
 package servlets;
 
+import helpers.ValidationHelper;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -46,9 +47,13 @@ public class Login extends HttpServlet {
 		String loggedInKey = new String("loggedIn");
 		Boolean loggedIn = false;
 		
-		if (session.isNew() || (request.getParameter("action") != null && request.getParameter("action").equals("logout"))) {
-			// if the session is new set loggedIn to false.
+		// When page is first loaded, check whether the session is new
+		if (session.isNew() || (ValidationHelper.isNotNullOrEmpty(request.getParameter("action"))
+				&& request.getParameter("action").equals("logout"))) {
+			// if the session is new, set loggedIn to false.
 			session.setAttribute(loggedInKey, loggedIn);
+			
+			// Display the login page.
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 		} else if (session.getAttribute("loggedIn") != null && (Boolean)session.getAttribute("loggedIn") == true) {
 			response.sendRedirect(request.getContextPath() + "/home");
@@ -71,11 +76,15 @@ public class Login extends HttpServlet {
 		Boolean loggedIn = false;
 		
 		// When page is first loaded, check whether the session is new
-		if (session.isNew() || (request.getParameter("action") != null && request.getParameter("action").equals("logout"))) {
-			// if the session is new set loggedIn to false.
+		if (session.isNew() || (ValidationHelper.isNotNullOrEmpty(request.getParameter("action"))
+				&& request.getParameter("action").equals("logout"))) {
+			// if the session is new, set loggedIn to false.
 			session.setAttribute(loggedInKey, loggedIn);
+			
+			// Display the login page.
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
-		} else if (session.getAttribute("loggedIn") != null && (Boolean)session.getAttribute("loggedIn") == false) {
+		} else if (ValidationHelper.isNotNull(session.getAttribute("loggedIn"))
+				&& (Boolean)session.getAttribute("loggedIn") == false) {
 			// otherwise if the session is not new, then this next segment will run for validating the login information
 			try {
 				// Storing user's login parameters to variables for ease of typing in code.
@@ -109,7 +118,7 @@ public class Login extends HttpServlet {
 					
 					// Set the name of the user that has logged in, if the user has their first name in the database
 					// we will store it for display, otherwise we will display their username instead.
-					session.setAttribute("loggedInUser", user.getString("firstname") != null 
+					session.setAttribute("loggedInUser", ValidationHelper.isNotNullOrEmpty(user.getString("firstname")) 
 														 ? user.getString("firstname")
 														 : request.getParameter("username"));
 					
@@ -120,10 +129,7 @@ public class Login extends HttpServlet {
 					
 					// Redirect the user to the home page of the website.
 					response.sendRedirect(request.getContextPath() + "/home");;
-				} else if((request.getParameter("username") != null || request.getParameter("password") != null)
-					&& !(request.getParameter("username").isEmpty() || request.getParameter("username").isEmpty())) {
-					//
-					
+				} else if (user.getRow() == 0) {
 					// Set an error message that either username or password is invalid.
 					request.setAttribute("errorMessage", "Invalid Username or Password.");
 					

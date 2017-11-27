@@ -7,7 +7,7 @@
 * Description: Servlet that handles Employee entry form.
 */
 package servlets;
-import helpers.EmployeeEntryHelper;
+import helpers.ValidationHelper;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -51,10 +51,10 @@ public class EmployeeEntry extends HttpServlet {
 		
 		// Getting the employee first name input
 		String firstName = request.getParameter("firstName");
-		if(!EmployeeEntryHelper.isNotNullOrEmpty(firstName)) {
+		if(!ValidationHelper.isNotNullOrEmpty(firstName)) {
 			request.setAttribute("errorMessage", "First name field cannot be empty");
 			formIsValid = false;
-		} else if(!EmployeeEntryHelper.isAlphabetic(firstName)) {
+		} else if(!ValidationHelper.isAlphabetic(firstName)) {
 			request.setAttribute("errorMessage", "First name must contain only letters");	
 			formIsValid = false;
 		} else {
@@ -64,10 +64,10 @@ public class EmployeeEntry extends HttpServlet {
 		
 		// Getting the employee last name input
 		String lastName = request.getParameter("lastName");
-		if(!EmployeeEntryHelper.isNotNullOrEmpty(lastName)) {
+		if(!ValidationHelper.isNotNullOrEmpty(lastName)) {
 			request.setAttribute("errorMessage2", "Last name field cannot be empty");
 			formIsValid = false;
-		} else if(!EmployeeEntryHelper.isAlphabetic(lastName)) {
+		} else if(!ValidationHelper.isAlphabetic(lastName)) {
 			request.setAttribute("errorMessage2", "Last name must contain only letters");	
 			formIsValid = false;
 		} else {
@@ -77,10 +77,10 @@ public class EmployeeEntry extends HttpServlet {
 		
 		// Getting the employee number input
 		String employeeNumber = request.getParameter("employeeNumber");
-		if(!EmployeeEntryHelper.isNotNullOrEmpty(employeeNumber)) {
+		if(!ValidationHelper.isNotNullOrEmpty(employeeNumber)) {
 			request.setAttribute("errorMessage3", "Employee Number cannot be empty");
 			formIsValid = false;
-		} else if ((!EmployeeEntryHelper.isInteger(employeeNumber)) || (employeeNumber.length() != 6)) {
+		} else if ((!ValidationHelper.isInteger(employeeNumber)) || (employeeNumber.length() != 6)) {
 			// Employee number must be exactly 6 digits?
 			request.setAttribute("errorMessage3", "Employee Number must be 6 integers long");
 			formIsValid = false;
@@ -91,10 +91,10 @@ public class EmployeeEntry extends HttpServlet {
 		
 		// Getting the employee email input
 		String email = request.getParameter("email");
-		if (!EmployeeEntryHelper.isNotNullOrEmpty(email)) {
+		if (!ValidationHelper.isNotNullOrEmpty(email)) {
 			request.setAttribute("errorMessage4", "Email field cannot be empty");
 			formIsValid = false;
-		} else if (!EmployeeEntryHelper.isEmail(email)) {
+		} else if (!ValidationHelper.isEmail(email)) {
 			request.setAttribute("errorMessage4", "Invalid email");
 			formIsValid = false;
 		} else {
@@ -105,14 +105,14 @@ public class EmployeeEntry extends HttpServlet {
 		// Getting the employee hire year input
 		// Store the selected option and send back if form is invalid
 		String hireYr = request.getParameter("hireYear");
-		if (!EmployeeEntryHelper.isNotNullOrEmpty(hireYr)) {
+		if (!ValidationHelper.isNotNullOrEmpty(hireYr)) {
 			request.setAttribute("errorMessage5", "Please select a hire year");
 			formIsValid = false;
 		}
 		
 		// Getting the employee job position input
 		String jobPos = request.getParameter("jobPosition");
-		if (!EmployeeEntryHelper.isNotNullOrEmpty(jobPos)) {
+		if (!ValidationHelper.isNotNullOrEmpty(jobPos)) {
 			//Set error message letting user know to select a option
 			request.setAttribute("errorMessage6", "Please select a job position");
 			formIsValid = false;
@@ -120,7 +120,7 @@ public class EmployeeEntry extends HttpServlet {
 		
 		// Getting the employee department
 		String department = request.getParameter("department");
-		if (!EmployeeEntryHelper.isNotNullOrEmpty(department)) {
+		if (!ValidationHelper.isNotNullOrEmpty(department)) {
 			// Set error message letting user know to select a option
 			request.setAttribute("errorMessage7", "Please select a department");
 			formIsValid = false;
