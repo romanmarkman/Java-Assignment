@@ -1,3 +1,4 @@
+<%@ page import ="helpers.ValidationHelper" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%! String title = "Login"; %>
@@ -11,8 +12,10 @@
 </head>
 <body>
 	<div id="login-div" class="centered">
-		<span class='error-message'>${errorMessage}</span>
-		<form action="login" method="POST" name="login-form" id="login-form">
+		<% if (ValidationHelper.isNotNull(request.getAttribute("errorMessage"))) { %>
+			<span class='error-message'>${errorMessage}</span>
+		<% } %>
+		<form action="login" method="POST" name="login-form" id="login-form" class="container">
 			<h1>Login</h1>
 			<div id="labels">
 				<label for="username">Username:</label>

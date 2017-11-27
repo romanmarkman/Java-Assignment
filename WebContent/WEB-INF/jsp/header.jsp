@@ -1,3 +1,4 @@
+<%@ page import ="helpers.ValidationHelper" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <div id='header'>
@@ -11,8 +12,7 @@
 		</ul>
 	</nav>
 	<div id="user-panel">
-		<% 
-			if (session.getAttribute("loggedIn") != null
+		<%  if (ValidationHelper.isNotNull(session.getAttribute("loggedIn"))
 				&& ((Boolean)session.getAttribute("loggedIn")) == false) { %>
 				<a href='${pageContext.request.contextPath}/login'>Log In</a>
 		<%  } else {  %>
