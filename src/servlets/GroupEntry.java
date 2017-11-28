@@ -96,7 +96,7 @@ public class GroupEntry extends HttpServlet {
 					for(int i=0; i<employee_ids.length; i++){
 						for(int j=i+1; j<employee_ids.length; j++){
 							if(employee_ids[i].equals(employee_ids[j])){
-								request.setAttribute("dubError", "Error: Dublicated Employee detected");
+								request.setAttribute("dubError", "Error: Duplicated Employee Detected");
 								request.getRequestDispatcher("/WEB-INF/jsp/group/group_entry_form.jsp").forward(request, response);
 								return;
 							}
