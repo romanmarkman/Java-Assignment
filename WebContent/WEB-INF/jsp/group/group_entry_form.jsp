@@ -33,7 +33,7 @@
 		String department_id = (String)session.getAttribute("department_id");
 	%>
 	<div id="group-div" class="centered">
-		<form name="GroupSelection" action="group_entry" method="GET" name="GroupEntry" id="groupForm" class="container">
+		<form name="GroupSelection" action="group_entry" method="POST" name="GroupEntry" id="groupForm" class="container">
 			<h1>Group Entry</h1>
 			<%//Check for department_id session value %>
 			<%if(department_id == null) { //Check for department_id session value %>
