@@ -10,12 +10,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/department-page.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/modal.css">
 <title><%= title %></title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
-	<div id="department-div" class="container">
-		<form action="department_entry" method="POST" name="departmentForm" id="depForm">
+	<div id="department-div" class="centered">
+		<form action="department_entry" method="POST" name="departmentForm" id="depForm" class="container">
 			<h1>Department Entry</h1>
 			<label for="departmentName">Department Name: </label><input type="text" name="departmentName" value="${validDepartmentName}"/><br>
 			<div class="errorMsg">${errorMessage}</div>	<br>
@@ -28,7 +29,7 @@
 			%>
 			<!-- Modal from https://www.w3schools.com/howto/howto_css_modals.asp -->
 				<div id="dialogBox" class ="dialog">
-					<div class="dialogContent">
+					<div class="dialogContent centered">
 						<div class="dialogHeader">
 							<span class="close">&times;</span>
 							<h3>New Department Added</h3>
@@ -57,7 +58,7 @@
 			</script>
 			
 			<input type="submit" value="Submit">
-			<input type="reset"  value="Cancel">
+			<input type="reset"  value="Reset">
 		</form>
 	</div>
 </body>

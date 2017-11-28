@@ -1,14 +1,14 @@
 @charset "ISO-8859-1";
 
-#depForm.container {
+#groupForm.container {
 	animation: slide-up ease-in-out 0.9s;
 }
 
-#depForm.container > * {
+#groupForm.container > * {
 	animation: slide-up ease-in-out 0.7s;
 }
 
-#depForm > h1 {
+#groupForm > h1 {
 	text-align: center;
 	font-size: 1.5em;
 }

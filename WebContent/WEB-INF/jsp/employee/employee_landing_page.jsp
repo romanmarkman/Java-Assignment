@@ -14,7 +14,7 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="container">
-		
+		<a href="${pageContext.request.contextPath}/employee_entry">Add a Employee Entry to the Database</a>
 	</div>
 </body>
 </html>

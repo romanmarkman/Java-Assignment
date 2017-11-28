@@ -14,6 +14,7 @@
 <title><%= title %></title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/employee-page.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/modal.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
@@ -43,7 +44,7 @@
 			   if (message != null) { %>
 			<!-- Modal from https://www.w3schools.com/howto/howto_css_modals.asp -->
 			<div id="dialogBox" class ="dialog">
-				<div class="dialogContent">
+				<div class="dialogContent centered">
 					<div class="dialogHeader">
 						<span class="close">&times;</span>
 						<h3>New Employee Added</h3>
