@@ -16,7 +16,7 @@ import utilities.DatabaseAccess;
 /**
  * Servlet implementation class GroupEntryServlet
  */
-@WebServlet("/GroupEntryServlet")
+@WebServlet("/group_entry")
 public class GroupEntry extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -51,7 +51,7 @@ public class GroupEntry extends HttpServlet {
 			//On Reset button click set department_id to null and postback
 			if(request.getParameter("Reset") != null){
 				session.setAttribute("department_id", null);
-				request.getRequestDispatcher("/GroupEntryPage.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/jsp/group/group_entry_form.jsp").forward(request, response);
 				return;
 				
 			}
@@ -66,7 +66,7 @@ public class GroupEntry extends HttpServlet {
 					request.setAttribute("groupError", "Group Name field cannot be empty");
 					formIsValid = false;
 				}
-				else if(!ValidationHelper.isAlphabeticAndNumerical(group_name)) {
+				else if(!ValidationHelper.isAlphanumeric(group_name)) {
 					request.setAttribute("groupError", "Group Name must only contain letters and numbers");	
 					formIsValid = false;
 				}
@@ -97,7 +97,7 @@ public class GroupEntry extends HttpServlet {
 						for(int j=i+1; j<employee_ids.length; j++){
 							if(employee_ids[i].equals(employee_ids[j])){
 								request.setAttribute("dubError", "Error: Dublicated Employee detected");
-								request.getRequestDispatcher("/GroupEntryPage.jsp").forward(request, response);
+								request.getRequestDispatcher("/WEB-INF/jsp/group/group_entry_form.jsp").forward(request, response);
 								return;
 							}
 						}
@@ -108,14 +108,14 @@ public class GroupEntry extends HttpServlet {
 			String group_name = request.getParameter("groupName");
 			//If form is invalid
 			if(formIsValid == false) {
-				request.getRequestDispatcher("/GroupEntryPage.jsp").forward(request, response);		
+				request.getRequestDispatcher("/WEB-INF/jsp/group/group_entry_form.jsp").forward(request, response);
 				return;
 			}
 			
 			else { //Form is valid set department_id to selected and postback
 				if(session.getAttribute("department_id") == null){
 					session.setAttribute("department_id", department_id);
-					request.getRequestDispatcher("/GroupEntryPage.jsp").forward(request, response);
+					request.getRequestDispatcher("/WEB-INF/jsp/group/group_entry_form.jsp").forward(request, response);
 				}
 				
 				else{ //Form is valid and able to submit
@@ -172,7 +172,7 @@ public class GroupEntry extends HttpServlet {
 						}
 							
 						connect.close();
-						request.getRequestDispatcher("/GroupEntryPage.jsp").forward(request, response);
+						request.getRequestDispatcher("/WEB-INF/jsp/group/group_entry_form.jsp").forward(request, response);
 					}
 					catch(Exception e){
 						System.err.println("Something unexpected happened...");
