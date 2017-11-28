@@ -82,12 +82,16 @@ public class Login extends HttpServlet {
 				&& request.getParameter("action").equals("logout"))) {
 			// if the session is new, set loggedIn to false.
 			session.setAttribute(loggedInKey, loggedIn);
-			session.removeAttribute("loggedInUser");
+			if ((ValidationHelper.isNotNullOrEmpty(request.getParameter("action"))
+					&& request.getParameter("action").equals("logout")))
+				session.removeAttribute("loggedInUser");
 			
 			// Display the login page.
 			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 		} else if (ValidationHelper.isNotNull(session.getAttribute("loggedIn"))
-				&& (Boolean)session.getAttribute("loggedIn") == false) {
+				&& (Boolean)session.getAttribute("loggedIn") == false
+				|| ValidationHelper.isNotNull(session.getAttribute("loggedIn"))
+				&& (Boolean)session.getAttribute("loggedIn") == true) {
 			// otherwise if the session is not new, then this next segment will run for validating the login information
 			try {
 				// Storing user's login parameters to variables for ease of typing in code.
@@ -110,7 +114,7 @@ public class Login extends HttpServlet {
 				ResultSet user = stmt.executeQuery(queryString);
 				// Move the user result set to the last row, 
 				// as there should only be one result.
-				user.last();
+				user.next();
 				
 				// Validate username and password by checking if any results
 				// showed up via user.getRow(), and if value is 1 it means 
@@ -131,8 +135,9 @@ public class Login extends HttpServlet {
 					request.removeAttribute("password");
 					
 					// Redirect the user to the home page of the website.
-					response.sendRedirect(request.getContextPath() + "/home");;
-				} else if (user.getRow() == 0) {
+					response.sendRedirect(request.getContextPath() + "/home");
+				} else if (ValidationHelper.isNotNullOrEmpty(username)
+						|| ValidationHelper.isNotNullOrEmpty(password)) {
 					// Set an error message that either username or password is invalid.
 					request.setAttribute("errorMessage", "Invalid Username or Password.");
 					
@@ -142,9 +147,8 @@ public class Login extends HttpServlet {
 					// If the user left login info blank, just return them to the login page.
 					request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 				}
-				
+				// Close Database Connection
 				connect.close();
-				
 			} catch (Exception e) {
 				// Error logging to the console.
 				System.err.println("Exception: " + e.getMessage());
