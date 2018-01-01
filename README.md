@@ -1,28 +1,13 @@
 # Java-Assignment
 Stuff to be done
 
-#1 - Jullian
-  - Code Login Page
-  - Code Home page
-    a. Make the HEADER.jsp bar with links to each page. 
-       Header must be transferable to each page with include (like php)
-       
-#2 - Kevin
-  - Code Department Landing jsp
-  - Code Department Entry servlet with necessary helper classes
+Database has been updated. Give it a whirl.
 
-#3 - Jeffy-boi
-  - Code Employee Landing jsp
-  - Code Employee Entry servlet with necessary helper classes
-  
-#4 - Roman
-  - Code Group Landing jsp
-  - Code Group Entry servlet with necessary helper classes
-  
-#5 - Andrew
-  - CREATE DATABASE
-  - Code Reports Landing jsp
-    a. Put Under Construction Image
-  - Code Employee Attendance Landing jsp
-    a. Put Under Construction Image
-  
+1) Everyone does the view page of whatever they worked on for part 1
+   Its just tabluar data. Don't worry about adding ASC/DESC ordering
+   for the  columns. Fuck that noise in its entirety. 
+   
+2) Need someone(s) to work on page layout for:
+   - Enter Report
+   - View Report
+   They don't need to be functional, just look like the mockup.
