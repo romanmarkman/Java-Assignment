@@ -21,9 +21,10 @@ SET time_zone = "+00:00";
 --
 -- Database: `comp3095`
 --
-DELETE DATABASE IF EXISTS comp3095;
+DROP DATABASE IF EXISTS `comp3095`;
 CREATE DATABASE IF NOT EXISTS `comp3095` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `comp3095`;
+
 grant all on COMP3095.* to 'admin'@'localhost' identified by 'admin'; 
 -- --------------------------------------------------------
 
