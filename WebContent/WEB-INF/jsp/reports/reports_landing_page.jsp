@@ -14,7 +14,7 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="container">
-		<img src="${pageContext.request.contextPath}/images/underconstruction.png">
+		 <a href="${pageContext.request.contextPath}/report_template">Build a report template</a>
 	</div>
 </body>
 </html>

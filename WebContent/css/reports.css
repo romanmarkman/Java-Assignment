@@ -1,0 +1,13 @@
+@charset "ISO-8859-1";
+
+.center-div{
+	margin:0 auto;
+}
+.details-div{
+	margin:0 auto;
+	width:800px;
+}
+.criteriaListDiv{
+	margin:0 auto;
+	width:600px;
+}

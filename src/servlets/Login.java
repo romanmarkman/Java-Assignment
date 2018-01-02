@@ -155,6 +155,7 @@ public class Login extends HttpServlet {
 				
 				// Return the user to the login page as we do not want users seeing exception messages,
 				// nor receiving a blank page due to an error which has occurred in code.
+				
 				request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 			}
 		}
