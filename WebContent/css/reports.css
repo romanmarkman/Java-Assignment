@@ -7,7 +7,23 @@
 	margin:0 auto;
 	width:800px;
 }
-.criteriaListDiv{
+.buildListDiv{
 	margin:0 auto;
-	width:600px;
+ 	width:400px; 
+}
+.criteriaListDiv{
+	vertical-align:top;
+	display:inline-block;
+	margin-left:25%;
+/* 	margin:0 auto; */
+/* 	width:400px; */
+}
+.inline-block{
+	display:inline-block;
+}
+.criteria-container{
+	width:400px;
+}
+.disabled{
+	background:#808080;
 }

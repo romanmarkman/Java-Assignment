@@ -46,7 +46,7 @@
 				</div>
 				<hr>
 				<span>2. Section I:   </span><input type="text" name="sectionOne" required>
-				<div id="sectionOneList" class="criteriaListDiv">
+				<div id="sectionOneList" class="buildListDiv">
 					<button type="button" id="addCriteria1" >Add Criteria</button>
 					<button type="button" id="removeCriteria1">Undo</button><br><br>
 					<div id="sectionOneChildren">
@@ -97,7 +97,7 @@
 				</script>
 				<hr>
 				<span>3. Section II:   </span><input type="text" name="sectionTwo" required>
-				<div id="sectionTwoList" class="criteriaListDiv">
+				<div id="sectionTwoList" class="buildListDiv">
 					<button type="button" id="addCriteria2">Add Criteria</button>
 					<button type="button" id="removeCriteria2">Undo</button><br><br>
 						<div id="sectionTwoChildren">
@@ -146,7 +146,7 @@
 				</script>
 				<hr>
 				<span>4. Section III: </span><input type="text" name="sectionThree" required>
-				<div id="sectionThreeList"  class="criteriaListDiv">
+				<div id="sectionThreeList"  class="buildListDiv">
 					<button type="button" id="addCriteria3">Add Criteria</button>
 					<button type="button" id="removeCriteria3">Undo</button><br><br>
 					<div id="sectionThreeChildren">

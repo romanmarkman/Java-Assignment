@@ -14,7 +14,8 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="container">
-		 <a href="${pageContext.request.contextPath}/report_template">Build a report template</a>
+		 <a href="${pageContext.request.contextPath}/report_template">Build a report template</a><br>
+		 <a href="${pageContext.request.contextPath}/report_entry">Enter a report</a>
 	</div>
 </body>
 </html>
