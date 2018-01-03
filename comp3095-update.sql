@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2018 at 02:51 PM
+-- Generation Time: Jan 03, 2018 at 02:19 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -26,6 +26,7 @@ CREATE DATABASE IF NOT EXISTS `comp3095` DEFAULT CHARACTER SET latin1 COLLATE la
 USE `comp3095`;
 
 grant all on COMP3095.* to 'admin'@'localhost' identified by 'admin'; 
+
 -- --------------------------------------------------------
 
 --
@@ -64,6 +65,58 @@ CREATE TABLE `criteria` (
   `criteria_name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `criteria`
+--
+
+INSERT INTO `criteria` (`criteria_id`, `criteria_name`) VALUES
+(9, 'section 1 crit 1'),
+(10, 'section 2 crit 2'),
+(11, 'section 2 crit 3'),
+(12, 'section 2 crit 1'),
+(13, 'section 2 crit 2'),
+(14, 'section 2 crit 3'),
+(15, 'section 3 crit 1'),
+(16, 'section 1 crit 1'),
+(17, 'section 2 crit 1'),
+(18, 'section 3 crit 1'),
+(19, 'section 1 crit 1'),
+(20, 'section 2 crit 1'),
+(21, 'section 3 crit 1'),
+(22, 'section 1 crit 1'),
+(23, 'section 2 crit 1'),
+(24, 'section 3 crit 1'),
+(25, 'section 1 crit 1'),
+(26, 'section 2 crit 1'),
+(27, 'section 3 crit 1'),
+(28, 'R&G'),
+(29, 'roles'),
+(30, 'listen to others'),
+(31, 'dsa'),
+(32, ''),
+(33, ''),
+(34, ''),
+(35, 'dsa'),
+(36, ''),
+(37, ''),
+(38, 'dsa'),
+(39, ''),
+(40, ''),
+(41, 'sumTem2Crit1'),
+(42, 'sumTem2Crit2'),
+(43, 'sumTem2Crit1'),
+(44, 'sumTem2Crit2'),
+(45, 'sumTem2Crit111'),
+(46, 'numbers'),
+(47, 'debits'),
+(48, 'credits'),
+(49, 'Criteria Test Section 1: 1/3'),
+(50, 'Criteria Test Section 1: 2/3'),
+(51, 'Criteria Test Section 1: 3/3'),
+(52, 'Criteria Test Section 2: 1/2'),
+(53, 'Criteria Test Section 2: 2/2'),
+(54, 'Criteria Test Section 3: 1/1');
+
 -- --------------------------------------------------------
 
 --
@@ -89,6 +142,58 @@ CREATE TABLE `criteria_section` (
   `section_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `criteria_section`
+--
+
+INSERT INTO `criteria_section` (`criteria_id`, `section_id`) VALUES
+(9, 5),
+(10, 5),
+(11, 5),
+(12, 6),
+(13, 6),
+(14, 6),
+(15, 7),
+(16, 8),
+(17, 9),
+(18, 10),
+(19, 11),
+(20, 12),
+(21, 13),
+(22, 14),
+(23, 15),
+(24, 16),
+(25, 17),
+(26, 18),
+(27, 19),
+(28, 20),
+(29, 21),
+(30, 22),
+(31, 23),
+(32, 23),
+(33, 23),
+(34, 23),
+(35, 24),
+(36, 24),
+(37, 24),
+(38, 25),
+(39, 25),
+(40, 25),
+(41, 26),
+(42, 26),
+(43, 27),
+(44, 27),
+(45, 28),
+(46, 29),
+(47, 30),
+(48, 31),
+(49, 32),
+(50, 32),
+(51, 32),
+(52, 33),
+(53, 33),
+(54, 34);
+
 -- --------------------------------------------------------
 
 --
@@ -108,7 +213,8 @@ CREATE TABLE `department` (
 
 INSERT INTO `department` (`department_id`, `name`, `location`) VALUES
 (1, 'Quality Assurance', 'basement level 3'),
-(2, 'Gaming', 'B99');
+(2, 'Gaming', 'B99'),
+(3, 'Accounting', 'F3');
 
 -- --------------------------------------------------------
 
@@ -148,7 +254,11 @@ INSERT INTO `employee` (`employee_id`, `firstname`, `lastname`, `employee_number
 (13, 'Andrew', 'Elliott', 435678, 'dsadsa@dsad.ca', '2005-01-01', 'Junior Programmer', 1),
 (14, 'Andrew', 'Elliott', 889876, 'dsa@dsa.ca', '2005-01-01', 'Senior Programmer', 2),
 (15, 'jeff', 'boi', 987456, 'dsa@da.ca', '2005-01-01', 'Senior Programmer', 2),
-(16, 'Billy Dee', 'Williams', 98723, 'ddsad@dsa.ca', '2005-01-01', 'Junior Programmer', 2);
+(16, 'Billy Dee', 'Williams', 98723, 'ddsad@dsa.ca', '2005-01-01', 'Junior Programmer', 2),
+(17, 'Ads', 'Ads', 111111, 'dsa@dsa.ca', '2005-01-01', 'Junior Programmer', 1),
+(18, 'Jeff', 'O', 990877, 'dsadsa@dsad.ca', '2005-01-01', 'Junior Programmer', 3),
+(19, 'Roman', 'Markman', 784839, 'fdsf@da.ca', '2006-01-01', 'Junior Programmer', 3),
+(20, 'Kevin', 'Lei', 762364, 'fdsf@dsad.ca', '2006-01-01', 'Junior Programmer', 3);
 
 -- --------------------------------------------------------
 
@@ -175,7 +285,8 @@ INSERT INTO `employee_group` (`employee_id`, `group_id`) VALUES
 (14, 8),
 (15, 3),
 (16, 7),
-(16, 9);
+(16, 9),
+(20, 10);
 
 -- --------------------------------------------------------
 
@@ -203,7 +314,8 @@ INSERT INTO `groups` (`group_id`, `name`, `department_id`) VALUES
 (6, 'The Whats', 1),
 (7, 'the whos', 2),
 (8, '111111', 2),
-(9, 'the doofs maloofs', 2);
+(9, 'the doofs maloofs', 2),
+(10, 'Accounting Tyrants', 3);
 
 -- --------------------------------------------------------
 
@@ -216,7 +328,10 @@ CREATE TABLE `report` (
   `report_id` int(10) UNSIGNED NOT NULL,
   `template_id` int(10) UNSIGNED NOT NULL,
   `report_name` text NOT NULL,
-  `report_date` date NOT NULL
+  `report_date` date NOT NULL,
+  `section_1_comment` text,
+  `section_2_comment` text,
+  `section_3_comment` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -230,6 +345,42 @@ CREATE TABLE `section` (
   `section_id` int(10) UNSIGNED NOT NULL,
   `section_name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `section`
+--
+
+INSERT INTO `section` (`section_id`, `section_name`) VALUES
+(5, 'Section 1'),
+(6, 'Section 2'),
+(7, 'Section 3'),
+(8, 'Section 1'),
+(9, 'Section 2'),
+(10, 'Section 3'),
+(11, 'Section 1'),
+(12, 'Section 2'),
+(13, 'Section 3'),
+(14, 'Section 11'),
+(15, 'Section 21'),
+(16, 'Section 31'),
+(17, 'Section 11'),
+(18, 'Section 21'),
+(19, 'Section 31'),
+(20, 'Contribution'),
+(21, 'Responsibility'),
+(22, 'Value'),
+(23, 'summer section 1'),
+(24, 'summer section 2'),
+(25, 'summer section 3'),
+(26, 'Summer Template 2 Section 1'),
+(27, 'Sumer Template 2 section 2'),
+(28, 'summer template 2 section 3'),
+(29, 'section 1'),
+(30, 'section 2'),
+(31, 'section 3'),
+(32, 'Criteria Section 1 Test'),
+(33, 'Criteria Section 2 Test'),
+(34, 'Criteria Section 3 Test');
 
 -- --------------------------------------------------------
 
@@ -247,6 +398,20 @@ CREATE TABLE `template` (
   `section_2` int(10) UNSIGNED NOT NULL,
   `section_3` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `template`
+--
+
+INSERT INTO `template` (`template_id`, `department_id`, `date`, `template_name`, `section_1`, `section_2`, `section_3`) VALUES
+(1, 1, '2018-01-02', 'Test4 Template', 11, 12, 13),
+(2, 2, '2018-01-02', 'Test5 Template', 14, 15, 16),
+(3, 2, '2018-01-02', 'Test6 Template', 17, 18, 19),
+(4, 2, '2018-01-02', 'Winter Report 2018', 20, 21, 22),
+(5, 1, '2018-01-02', 'Summer Template', 23, 24, 25),
+(6, 2, '2018-01-02', 'Summer Template 2', 26, 27, 28),
+(7, 3, '2018-01-02', 'Summer Report ACC', 29, 30, 31),
+(8, 3, '2018-01-03', 'Criteria Test Template', 32, 33, 34);
 
 -- --------------------------------------------------------
 
@@ -380,25 +545,25 @@ ALTER TABLE `attendance`
 -- AUTO_INCREMENT for table `criteria`
 --
 ALTER TABLE `criteria`
-  MODIFY `criteria_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `criteria_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `department_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `department_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employee_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `employee_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `group_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `group_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `report`
@@ -410,13 +575,13 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `section_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `section_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `template`
 --
 ALTER TABLE `template`
-  MODIFY `template_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `template_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
