@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2018 at 02:10 AM
+-- Generation Time: Jan 04, 2018 at 03:17 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -70,52 +70,34 @@ CREATE TABLE `criteria` (
 --
 
 INSERT INTO `criteria` (`criteria_id`, `criteria_name`) VALUES
-(9, 'section 1 crit 1'),
-(10, 'section 2 crit 2'),
-(11, 'section 2 crit 3'),
-(12, 'section 2 crit 1'),
-(13, 'section 2 crit 2'),
-(14, 'section 2 crit 3'),
-(15, 'section 3 crit 1'),
-(16, 'section 1 crit 1'),
-(17, 'section 2 crit 1'),
-(18, 'section 3 crit 1'),
-(19, 'section 1 crit 1'),
-(20, 'section 2 crit 1'),
-(21, 'section 3 crit 1'),
-(22, 'section 1 crit 1'),
-(23, 'section 2 crit 1'),
-(24, 'section 3 crit 1'),
-(25, 'section 1 crit 1'),
-(26, 'section 2 crit 1'),
-(27, 'section 3 crit 1'),
-(28, 'R&G'),
-(29, 'roles'),
-(30, 'listen to others'),
-(31, 'dsa'),
-(32, ''),
-(33, ''),
-(34, ''),
-(35, 'dsa'),
-(36, ''),
-(37, ''),
-(38, 'dsa'),
-(39, ''),
-(40, ''),
-(41, 'sumTem2Crit1'),
-(42, 'sumTem2Crit2'),
-(43, 'sumTem2Crit1'),
-(44, 'sumTem2Crit2'),
-(45, 'sumTem2Crit111'),
-(46, 'numbers'),
-(47, 'debits'),
-(48, 'credits'),
-(49, 'Criteria Test Section 1: 1/3'),
-(50, 'Criteria Test Section 1: 2/3'),
-(51, 'Criteria Test Section 1: 3/3'),
-(52, 'Criteria Test Section 2: 1/2'),
-(53, 'Criteria Test Section 2: 2/2'),
-(54, 'Criteria Test Section 3: 1/1');
+(77, 'Time'),
+(78, 'Speed'),
+(79, 'Communication'),
+(80, 'Planning'),
+(81, 'Looks'),
+(82, 'Skill'),
+(83, 'Hygiene'),
+(84, 'Hair'),
+(85, 'Attire'),
+(86, 'Attendance'),
+(87, 'Shoes'),
+(88, 'crit 1'),
+(89, 'crit 2'),
+(90, 'crit 3'),
+(91, 'crit 4'),
+(92, 'crit 5'),
+(93, 'crit 1'),
+(94, 'crit 2'),
+(95, 'crit 3'),
+(96, 'crit 1'),
+(97, 'crit 2'),
+(98, 'crit 3'),
+(99, 'Debits'),
+(100, 'Credits'),
+(101, 'Receivables'),
+(102, 'Depreciation'),
+(103, 'ContraDep'),
+(104, 'Expenses');
 
 -- --------------------------------------------------------
 
@@ -135,18 +117,12 @@ CREATE TABLE `criteria_grade` (
 --
 
 INSERT INTO `criteria_grade` (`report_id`, `criteria_id`, `grade`) VALUES
-(3, 49, 1),
-(3, 50, 1),
-(3, 51, 1),
-(3, 52, 2),
-(3, 53, 2),
-(3, 54, 3),
-(4, 49, 1),
-(4, 50, 1),
-(4, 51, 1),
-(4, 52, 1),
-(4, 53, 1),
-(4, 54, 1);
+(21, 99, 1),
+(21, 100, 2),
+(21, 101, 3),
+(21, 102, 1),
+(21, 103, 2),
+(21, 104, 1);
 
 -- --------------------------------------------------------
 
@@ -165,52 +141,34 @@ CREATE TABLE `criteria_section` (
 --
 
 INSERT INTO `criteria_section` (`criteria_id`, `section_id`) VALUES
-(9, 5),
-(10, 5),
-(11, 5),
-(12, 6),
-(13, 6),
-(14, 6),
-(15, 7),
-(16, 8),
-(17, 9),
-(18, 10),
-(19, 11),
-(20, 12),
-(21, 13),
-(22, 14),
-(23, 15),
-(24, 16),
-(25, 17),
-(26, 18),
-(27, 19),
-(28, 20),
-(29, 21),
-(30, 22),
-(31, 23),
-(32, 23),
-(33, 23),
-(34, 23),
-(35, 24),
-(36, 24),
-(37, 24),
-(38, 25),
-(39, 25),
-(40, 25),
-(41, 26),
-(42, 26),
-(43, 27),
-(44, 27),
-(45, 28),
-(46, 29),
-(47, 30),
-(48, 31),
-(49, 32),
-(50, 32),
-(51, 32),
-(52, 33),
-(53, 33),
-(54, 34);
+(77, 41),
+(78, 41),
+(79, 41),
+(80, 41),
+(81, 41),
+(82, 42),
+(83, 42),
+(84, 42),
+(85, 43),
+(86, 43),
+(87, 43),
+(88, 44),
+(89, 44),
+(90, 44),
+(91, 44),
+(92, 44),
+(93, 45),
+(94, 45),
+(95, 45),
+(96, 46),
+(97, 46),
+(98, 46),
+(99, 47),
+(100, 47),
+(101, 47),
+(102, 48),
+(103, 48),
+(104, 49);
 
 -- --------------------------------------------------------
 
@@ -258,22 +216,12 @@ CREATE TABLE `employee` (
 
 INSERT INTO `employee` (`employee_id`, `firstname`, `lastname`, `employee_number`, `email`, `hire_date`, `job_position`, `department_id`) VALUES
 (1, 'Jeff', 'Boye', 123456, 'fake@email.ca', '2017-10-09', 'tester', 1),
-(2, 'dsa', 'dsa', 432567, 'dsadsa@dsad.ca', '2005-01-01', 'Junior Programmer', 1),
 (3, 'hello', 'mynameis', 98765, 'dsad@dsa.ca', '2008-01-01', 'Accountant', 1),
-(4, '543', '543', 432567, 'dsad@dsa.ca', '2005-01-01', 'Junior Programmer', 1),
-(5, '543', '543', 432567, 'dsad@dsa.ca', '2005-01-01', 'Junior Programmer', 1),
-(6, '543', '342', 432567, 'dsadsa@dsad.ca', '2005-01-01', 'Junior Programmer', 1),
-(7, '4324', '4324', 432567, 'dsadsa@dsad.ca', '2005-01-01', 'Junior Programmer', 1),
-(8, 'ds', 'dsa', 543567, 'andrewmr.elliott@gmail.com', '2005-01-01', 'Junior Programmer', 1),
-(9, 'ds', 'dsa', 543567, 'andrewmr.elliott@gmail.com', '2005-01-01', 'Junior Programmer', 1),
-(10, 'ds', 'dsa', 543567, 'andrewmr.elliott@gmail.com', '2005-01-01', 'Junior Programmer', 1),
-(11, 'dsa', 'dsa', 435678, 'dsadsa@dsad.ca', '2007-01-01', 'Junior Programmer', 1),
 (12, 'Andrew', 'Elliott', 435678, 'dsadsa@dsad.ca', '2005-01-01', 'Junior Programmer', 1),
 (13, 'Andrew', 'Elliott', 435678, 'dsadsa@dsad.ca', '2005-01-01', 'Junior Programmer', 1),
 (14, 'Andrew', 'Elliott', 889876, 'dsa@dsa.ca', '2005-01-01', 'Senior Programmer', 2),
 (15, 'jeff', 'boi', 987456, 'dsa@da.ca', '2005-01-01', 'Senior Programmer', 2),
 (16, 'Billy Dee', 'Williams', 98723, 'ddsad@dsa.ca', '2005-01-01', 'Junior Programmer', 2),
-(17, 'Ads', 'Ads', 111111, 'dsa@dsa.ca', '2005-01-01', 'Junior Programmer', 1),
 (18, 'Jeff', 'O', 990877, 'dsadsa@dsad.ca', '2005-01-01', 'Junior Programmer', 3),
 (19, 'Roman', 'Markman', 784839, 'fdsf@da.ca', '2006-01-01', 'Junior Programmer', 3),
 (20, 'Kevin', 'Lei', 762364, 'fdsf@dsad.ca', '2006-01-01', 'Junior Programmer', 3);
@@ -358,8 +306,7 @@ CREATE TABLE `report` (
 --
 
 INSERT INTO `report` (`report_id`, `template_id`, `report_name`, `target_name`, `report_date`, `section_1_comment`, `section_2_comment`, `section_3_comment`) VALUES
-(3, 8, 'Markman, Roman', '2018-01-03', 'Test Report 3', '', '', ''),
-(4, 8, 'Accounting Tyrants', '2018-01-03', 'Test Report 3', '', '', '');
+(21, 13, 'Kevin Report', 'Lei, Kevin', '2018-01-04', 'testt', 'testtt', 'testttt');
 
 -- --------------------------------------------------------
 
@@ -378,36 +325,15 @@ CREATE TABLE `section` (
 --
 
 INSERT INTO `section` (`section_id`, `section_name`) VALUES
-(5, 'Section 1'),
-(6, 'Section 2'),
-(7, 'Section 3'),
-(8, 'Section 1'),
-(9, 'Section 2'),
-(10, 'Section 3'),
-(11, 'Section 1'),
-(12, 'Section 2'),
-(13, 'Section 3'),
-(14, 'Section 11'),
-(15, 'Section 21'),
-(16, 'Section 31'),
-(17, 'Section 11'),
-(18, 'Section 21'),
-(19, 'Section 31'),
-(20, 'Contribution'),
-(21, 'Responsibility'),
-(22, 'Value'),
-(23, 'summer section 1'),
-(24, 'summer section 2'),
-(25, 'summer section 3'),
-(26, 'Summer Template 2 Section 1'),
-(27, 'Sumer Template 2 section 2'),
-(28, 'summer template 2 section 3'),
-(29, 'section 1'),
-(30, 'section 2'),
-(31, 'section 3'),
-(32, 'Criteria Section 1 Test'),
-(33, 'Criteria Section 2 Test'),
-(34, 'Criteria Section 3 Test');
+(41, 'Part 1'),
+(42, 'Part 2'),
+(43, 'Part 3'),
+(44, 'Section 1'),
+(45, 'section 2'),
+(46, 'section 3'),
+(47, 'Part I'),
+(48, 'Part II'),
+(49, 'Part III');
 
 -- --------------------------------------------------------
 
@@ -431,14 +357,9 @@ CREATE TABLE `template` (
 --
 
 INSERT INTO `template` (`template_id`, `department_id`, `date`, `template_name`, `section_1`, `section_2`, `section_3`) VALUES
-(1, 1, '2018-01-02', 'Test4 Template', 11, 12, 13),
-(2, 2, '2018-01-02', 'Test5 Template', 14, 15, 16),
-(3, 2, '2018-01-02', 'Test6 Template', 17, 18, 19),
-(4, 2, '2018-01-02', 'Winter Report 2018', 20, 21, 22),
-(5, 1, '2018-01-02', 'Summer Template', 23, 24, 25),
-(6, 2, '2018-01-02', 'Summer Template 2', 26, 27, 28),
-(7, 3, '2018-01-02', 'Summer Report ACC', 29, 30, 31),
-(8, 3, '2018-01-03', 'Criteria Test Template', 32, 33, 34);
+(11, 1, '2018-01-04', 'QA Report', 41, 42, 43),
+(12, 2, '2018-01-04', 'Gaming', 44, 45, 46),
+(13, 3, '2018-01-04', 'Accounting Report', 47, 48, 49);
 
 -- --------------------------------------------------------
 
@@ -572,7 +493,7 @@ ALTER TABLE `attendance`
 -- AUTO_INCREMENT for table `criteria`
 --
 ALTER TABLE `criteria`
-  MODIFY `criteria_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `criteria_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `department`
@@ -596,19 +517,19 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
-  MODIFY `report_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `report_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `section_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `section_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `template`
 --
 ALTER TABLE `template`
-  MODIFY `template_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `template_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
