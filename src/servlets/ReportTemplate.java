@@ -78,12 +78,12 @@ public class ReportTemplate extends HttpServlet {
 		} else {
 			String date = request.getParameter("templateDate");
 //		    System.out.println(sectionOne);
-			String[] sectionOneCriteriaNames = request.getParameterValues("section_1_criteria_name");
-			String[] sectionTwoCriteriaNames = request.getParameterValues("section_2_criteria_name");
-			String[] sectionThreeCriteriaNames = request.getParameterValues("section_3_criteria_name");
-			Integer sectionOneId = ReportHelper.insertSection(sectionOne);	
-			Integer sectionTwoId = ReportHelper.insertSection(sectionTwo);
-			Integer sectionThreeId = ReportHelper.insertSection(sectionThree);
+			String[] sectionOneCriteriaNames 	= request.getParameterValues("section_1_criteria_name");
+			String[] sectionTwoCriteriaNames 	= request.getParameterValues("section_2_criteria_name");
+			String[] sectionThreeCriteriaNames 	= request.getParameterValues("section_3_criteria_name");
+			Integer sectionOneId 	= ReportHelper.insertSection(sectionOne);	
+			Integer sectionTwoId 	= ReportHelper.insertSection(sectionTwo);
+			Integer sectionThreeId 	= ReportHelper.insertSection(sectionThree);
 //			for(String names : sectionOneCriteriaNames) {
 //				System.out.println(names);
 //			}

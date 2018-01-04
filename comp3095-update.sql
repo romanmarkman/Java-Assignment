@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2018 at 02:19 PM
+-- Generation Time: Jan 04, 2018 at 02:10 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -129,6 +129,24 @@ CREATE TABLE `criteria_grade` (
   `criteria_id` int(11) UNSIGNED NOT NULL,
   `grade` int(1) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `criteria_grade`
+--
+
+INSERT INTO `criteria_grade` (`report_id`, `criteria_id`, `grade`) VALUES
+(3, 49, 1),
+(3, 50, 1),
+(3, 51, 1),
+(3, 52, 2),
+(3, 53, 2),
+(3, 54, 3),
+(4, 49, 1),
+(4, 50, 1),
+(4, 51, 1),
+(4, 52, 1),
+(4, 53, 1),
+(4, 54, 1);
 
 -- --------------------------------------------------------
 
@@ -328,11 +346,20 @@ CREATE TABLE `report` (
   `report_id` int(10) UNSIGNED NOT NULL,
   `template_id` int(10) UNSIGNED NOT NULL,
   `report_name` text NOT NULL,
-  `report_date` date NOT NULL,
+  `target_name` text NOT NULL,
+  `report_date` text NOT NULL,
   `section_1_comment` text,
   `section_2_comment` text,
   `section_3_comment` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `report`
+--
+
+INSERT INTO `report` (`report_id`, `template_id`, `report_name`, `target_name`, `report_date`, `section_1_comment`, `section_2_comment`, `section_3_comment`) VALUES
+(3, 8, 'Markman, Roman', '2018-01-03', 'Test Report 3', '', '', ''),
+(4, 8, 'Accounting Tyrants', '2018-01-03', 'Test Report 3', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -569,7 +596,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
-  MODIFY `report_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `report_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `section`

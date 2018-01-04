@@ -7,7 +7,9 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.sql.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import utilities.DatabaseAccess;
@@ -87,6 +89,8 @@ public final class ReportHelper {
 			}
 	}
 	
+	
+	
 	public static void insertTemplate(Integer sectionOne, Integer sectionTwo, Integer sectionThree, String tempName, 
 										String date, Integer department_id) {
 		
@@ -111,6 +115,59 @@ public final class ReportHelper {
 		}
 		
 	}
+	public static Integer insertReport(Integer tempID, String target ,
+										String reportName, String reportDate, 
+										String com1, String com2, String com3) {
+		 Integer reportID = 0;
+		try {
+			Connection connect = DatabaseAccess.connectDataBase();
+			
+			String queryString = "INSERT INTO report (template_id, report_name, target_name, report_date, section_1_comment, section_2_comment, section_3_comment)"					
+								+ "VALUES(?,?,?,?,?,?,?)";
+			PreparedStatement stmt = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, tempID);
+			stmt.setString(2, reportName);
+			stmt.setString(3, target);
+			stmt.setString(4, reportDate);
+			stmt.setString(5, com1);
+			stmt.setString(6, com2);
+			stmt.setString(7, com3);
+			stmt.execute();
+			ResultSet res = stmt.getGeneratedKeys();
+			
+			if(res.next()) {
+				reportID = res.getInt(1);
+			}
+			res.close();
+			connect.close();
+		}catch(Exception e) {
+			System.out.println("exception in insert insertReport" + e);
+		}
+		return reportID;
+	}
+	
+	public static void insertCriteriaGrade(Integer reportID, String[] IDs, String[] values) {
+		try {
+			Connection connect = DatabaseAccess.connectDataBase();
+			
+			String queryString = "INSERT INTO criteria_grade (report_id, criteria_id, grade) "
+								+ "VALUES(?,?,?) ";
+			Integer cnt = 0;
+			for(String ID : IDs) {
+				PreparedStatement stmt = connect.prepareStatement(queryString);
+				stmt.setInt(1, reportID);
+				stmt.setInt(2, Integer.parseInt(ID));
+				stmt.setString(3, values[cnt]);
+				stmt.execute();
+				cnt++;
+			}
+			connect.close();
+			
+		}catch(Exception e) {
+			System.out.println("exception in insert insertCriteriaGrade" + e);
+		}
+	}
+	
 	
 	public static ArrayList<String> getTemplateDepartments(Integer templateID){
 		ArrayList<String> departments = new ArrayList<>();
@@ -153,13 +210,13 @@ public final class ReportHelper {
 			stmt.setInt(1,tempID);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				System.out.println("RS feed: "+rs.getString(2) + ", " + rs.getString(1));
+				//System.out.println("RS feed: "+rs.getString(2) + ", " + rs.getString(1));
 				employees.add(rs.getString(2) + ", " + rs.getString(1));
 			}
 			rs.close();
 			connect.close();
 		}catch(Exception e) {
-			System.out.println("Error in getDepartmentEmployees: " + e);
+			//System.out.println("Error in getDepartmentEmployees: " + e);
 			return null;
 		}
 		return employees;
@@ -186,7 +243,7 @@ public final class ReportHelper {
 			rs.close();
 			connect.close();
 		}catch(Exception e) {
-			System.out.println("Error in getDepartmentEmployees: " + e);
+			//System.out.println("Error in getDepartmentEmployees: " + e);
 			return null;
 		}
 		return group;
@@ -232,7 +289,7 @@ public final class ReportHelper {
 	}
 	
 	public static Map<String,String> getCriteriaNames(Integer tempID, Integer tier){
-		Map<String,String> cIDcName = new HashMap<String,String>();
+		Map<String,String> cIDcName = new LinkedHashMap<String,String>();
 		ArrayList<Integer> criteriaIDs = new ArrayList<>();
 		ArrayList<String> criteriaNames = new ArrayList<>();
 		try {
@@ -245,7 +302,7 @@ public final class ReportHelper {
 			stmt.setInt(1,sectionID);
 			ResultSet rsID = stmt.executeQuery();
 			while(rsID.next()) {
-				//System.out.println(rsID.getString(1));
+				//System.out.println("Getting id: " + rsID.getString(1));
 				criteriaIDs.add(rsID.getInt(1));
 			}
 			rsID.close();
@@ -257,7 +314,7 @@ public final class ReportHelper {
 				stmt2.setInt(1, critID);
 				ResultSet critRsId = stmt2.executeQuery();
 				while(critRsId.next()) {
-					//System.out.println(critRsId.getString(1));
+					//System.out.println("Getting name: " +critRsId.getString(1));
 					criteriaNames.add(critRsId.getString(1));
 				}
 				critRsId.close();
@@ -270,6 +327,7 @@ public final class ReportHelper {
 		} 
 		Integer cnt = 0;
 		for(String name : criteriaNames) {
+			//System.out.println("Setting up Array: " + name + " : " + criteriaIDs.get(cnt).toString());
 			cIDcName.put(name, criteriaIDs.get(cnt).toString());
 			cnt++;
 		}
@@ -305,9 +363,95 @@ public final class ReportHelper {
 			//System.out.println("exception in getSectionID" + e);
 			return null;
 		}
-		return sectionID;
-		
-		
+		return sectionID;		
 	}
+	
+	public static Map<String,String> getReportTitle(Integer tempID) {
+		Map<String,String> reports = new LinkedHashMap<String,String>();
+		try {
+			Connection connect = DatabaseAccess.connectDataBase();
+			
+			String queryString = "SELECT report_name, report_id FROM report WHERE template_id = ?";
+			PreparedStatement stmt = connect.prepareStatement(queryString);
+			stmt.setInt(1, tempID);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				reports.put(Integer.toString(rs.getInt(2)), rs.getString(1));
+			}
+			rs.close();
+			connect.close();
+		}catch(Exception e) {
+			
+		}
+		return reports;
+	}
+	
+	public static ArrayList<String> getCritValues(Integer reportID){
+		ArrayList<String> values = new ArrayList<>();
+		try {
+			Connection connect = DatabaseAccess.connectDataBase();
+			
+			String queryString = "SELECT grade FROM criteria_grade WHERE report_id = ?";
+			PreparedStatement stmt = connect.prepareStatement(queryString);
+			stmt.setInt(1, reportID);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				values.add(rs.getString(1));
+			}
+			rs.close();
+			connect.close();
+		}catch(Exception e) {
+			
+		}
+		return values;
+	}
+	
+	public static ArrayList<String> getComments(Integer reportID){
+		ArrayList<String> values = new ArrayList<>();
+		try {
+			Connection connect = DatabaseAccess.connectDataBase();
+			
+			String queryString = "SELECT section_1_comment,section_2_comment,section_3_comment FROM report WHERE report_id = ?";
+			PreparedStatement stmt = connect.prepareStatement(queryString);
+			stmt.setInt(1, reportID);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				values.add(rs.getString(1));
+				values.add(rs.getString(2));
+				values.add(rs.getString(3));
+			}
+			rs.close();
+			connect.close();
+		}catch(Exception e) {
+			
+		}
+		return values;
+	}
+	
+	public static ArrayList<String> getReportDetails(Integer reportID) {
+		ArrayList<String> values = new ArrayList<>();
+		try {
+			Connection connect = DatabaseAccess.connectDataBase();
+			
+			String queryString = "SELECT template.template_name, report.report_name, report.report_date "
+								+ "FROM  report INNER JOIN template ON template.template_id = report.template_id WHERE report_id = ?";
+			PreparedStatement stmt = connect.prepareStatement(queryString);
+			stmt.setInt(1, reportID);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				values.add(rs.getString(1));
+				values.add(rs.getString(2));
+				values.add(rs.getString(3));
+			}
+			rs.close();
+			connect.close();
+		}catch(Exception e) {
+			System.out.println("exception in getReportDetails" + e);
+		}
+		return values;
+	}
+	
+	
+	
 }
 
