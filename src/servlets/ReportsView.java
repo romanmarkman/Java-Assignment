@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import helpers.ReportHelper;
+import helpers.ValidationHelper;
 
 /**
  * Servlet implementation class ReportsView
@@ -55,6 +56,9 @@ public class ReportsView extends HttpServlet {
 			
 		}
 		if(request.getParameter("formselect").equals("selectReport")) {
+			if(request.getParameter("reports") == null) {
+				request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_view.jsp").forward(request, response);
+			}
 			tempID = Integer.parseInt(request.getParameter("templateIDselect"));
 			reportID = Integer.parseInt(request.getParameter("reports"));
 			getFormData(request,response,tempID,reportID);
