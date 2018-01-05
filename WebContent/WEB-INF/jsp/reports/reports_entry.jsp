@@ -6,6 +6,7 @@
 <%@ page import ="javax.sql.*" %>
 <%@ page import ="java.util.Map" %>
 <%@ page import ="java.util.HashMap" %>
+<%@ page import ="java.util.LinkedHashMap" %>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -24,19 +25,20 @@
 <body>
 	<%
 		
-		DatabaseAccess db = new DatabaseAccess();
-		java.sql.Connection connect = DatabaseAccess.connectDataBase();
-		Statement statement = connect.createStatement();
-		ResultSet templateList = statement.executeQuery("SELECT template_id,template_name FROM template");
 		ArrayList<String> departments = new ArrayList<>();
 		ArrayList<String> sections = new ArrayList<>();
 		ArrayList<String> employees = new ArrayList<>();
 		ArrayList<String> groups = new ArrayList<>();
+		
+		Map<String,String> templateList = new LinkedHashMap<String,String>();
 		Map<String,String> section1crit = new HashMap<String,String>();
 		Map<String,String> section2crit = new HashMap<String,String>();
 		Map<String,String> section3crit = new HashMap<String,String>();
 		Integer tempID = 0;
 		
+		if(request.getAttribute("templateList") != null){
+			templateList = (Map<String,String>)request.getAttribute("templateList");
+		}
 		if(request.getAttribute("departmentList") != null){						
 			departments = (ArrayList<String>)request.getAttribute("departmentList");
 			
@@ -69,15 +71,12 @@
 			<div class="details-div">
 			<input type="hidden" name="formselect" value="selectTemplate">
 						Report Template: <select id="selectTemp" onchange="this.form.submit()" name="selectTemplate">
-											<option selected disabled hidden value=<%=tempID %>>Select Template</option>
-										  	<% while(templateList.next()) { %>
-											<option value="<%= templateList.getInt(1) %>">
-												<%= templateList.getString(2) %>
+										  	<option selected disabled hidden value=<%=tempID %>>Select Template</option>
+										  	<%for(Map.Entry<String,String> entry : templateList.entrySet()){	%>
+											<option value="<%= entry.getKey() %>">
+												<%= entry.getValue() %>
 											</option>
-											<% }
-										  		templateList.close();
-										  	 	connect.close();
-										  	 %>	
+											<% } %>	
 										 </select>
 		<script>
 		$(document).ready(function(){

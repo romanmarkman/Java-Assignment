@@ -451,6 +451,48 @@ public final class ReportHelper {
 		return values;
 	}
 	
+	public static Map<String,String> getTemplateList(){
+		Map<String,String> tempList = new LinkedHashMap<>();
+		try {
+			Connection connect = DatabaseAccess.connectDataBase();
+			
+			String query = "SELECT template_id,template_name FROM template";
+			
+			PreparedStatement stmt = connect.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				System.out.println(Integer.toString(rs.getInt(1))+ " " + rs.getString(2));
+				tempList.put(Integer.toString(rs.getInt(1)), rs.getString(2));
+			}
+			rs.close();
+			connect.close();
+		}catch(Exception e) {
+			
+		}
+		return tempList;
+	}
+	
+	public static Map<String,String> getDepartmentList(){
+		Map<String,String> tempList = new LinkedHashMap<>();
+		try {
+			Connection connect = DatabaseAccess.connectDataBase();
+			
+			String query = "SELECT department_id,name FROM department";
+			
+			PreparedStatement stmt = connect.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				System.out.println(Integer.toString(rs.getInt(1))+ " " + rs.getString(2));
+				tempList.put(Integer.toString(rs.getInt(1)), rs.getString(2));
+			}
+			rs.close();
+			connect.close();
+		}catch(Exception e) {
+			
+		}
+		return tempList;
+	}
+	
 	
 	
 }

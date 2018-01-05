@@ -82,7 +82,11 @@ input[type=reset]:active, input[type=reset]:focus {
 				inset 0 0 30px rgba(128, 147, 178, 0.5);
 	animation: slide-up ease-in-out 0.7s;
 }
-
+.overflow{
+	max-height: 600px;
+	max-width:800px;
+	overflow-y:scroll;
+}
 .container > * {
 	animation: slide-up ease-in-out 0.5s;
 }

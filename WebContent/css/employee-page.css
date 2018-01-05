@@ -17,3 +17,14 @@ div.errorMsg {
 	color: red;
 	margin: 0;
 }
+.employee-load-div{
+	width:900px;
+	
+	margin:0 auto;
+    padding: 50px;
+    background: rgba(225, 225, 225, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2), inset 0 0 30px rgba(128, 147, 178, 0.5);
+   
+	
+}

@@ -47,6 +47,7 @@ public class EmployeeView extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
+		Integer depID = 0;
 		boolean formIsValid = true;
 		String department = request.getParameter("department");
 		if (!ValidationHelper.isNotNullOrEmpty(department)) {
@@ -62,6 +63,7 @@ public class EmployeeView extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/employee/employeeView.jsp").forward(request, response);
 			return;
 		} else {
+			
 			// Connect to MySQL database
 			try {
 				Connection connect = DatabaseAccess.connectDataBase();

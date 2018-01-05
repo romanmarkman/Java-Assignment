@@ -15,6 +15,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><%= title %></title>
+<script type="text/javascript" src="${pageContext.request.contextPath}/jQuery/jquery-3.2.0.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/employee-page.css">
 </head>
@@ -22,15 +23,17 @@
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	
 	<%
+		Integer depID = 0;
 		DatabaseAccess db = new DatabaseAccess();
 		java.sql.Connection connect = DatabaseAccess.connectDataBase();
 		Statement statement = connect.createStatement();
 		ResultSet resultSet = statement.executeQuery("Select name from department");
 	%>
 	
-	<div id="employee-load-div" class='centered'>
+	<div id="employee-load-div" class='centered container'>
+	
+	<form action = "employee_view" method = "POST" name = "employeeView" id = "eView" >
 	<h1>Employee Listing</h1>
-	<form action = "employee_view" method = "POST" name = "employeeView" id = "eView" class = "container">
 		<select name="department">
 			<option selected disabled hidden>Department</option>
 				<% while(resultSet.next()){ %>
@@ -39,8 +42,10 @@
 		</select>
 		<br><div class="errorMsg">${errorMessage8}</div>
 		<br>
-		
-		
+	<input type="submit" value="Search">
+	
+	<hr>
+	<div class="overflow">	
 	<table>
 		  <tr>
 		    <th>Employee #</th>
@@ -71,12 +76,11 @@
 		};
 	%>
 		
-	</table>	
-		  
-		  
-		
-		<input type="submit" value="Submit">
-		<input type="reset"  value="Cancel">
+	</table>
+	</div>	
+	</form>
+	<form action="${pageContext.request.contextPath}/home">
+    	<input type="submit" value="Home" />
 	</form>
 	</div>
 </body>

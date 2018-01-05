@@ -33,6 +33,8 @@ public class ReportsView extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Map<String,String> tempList = ReportHelper.getTemplateList();
+		request.setAttribute("templateList", tempList);
 		request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_view.jsp").forward(request, response);
 	}
 
@@ -42,6 +44,8 @@ public class ReportsView extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Integer tempID = 0;
 		Integer reportID = 0;
+		Map<String,String> tempList = ReportHelper.getTemplateList();
+		request.setAttribute("templateList", tempList);
 		
 		
 		if(request.getParameter("formselect").equals("selectTemplate")) {

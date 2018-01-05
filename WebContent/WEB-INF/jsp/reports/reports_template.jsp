@@ -3,6 +3,8 @@
 <%@ page import="utilities.DatabaseAccess"%>
 <%@ page import ="java.sql.*" %>
 <%@ page import ="javax.sql.*" %>
+<%@ page import ="java.util.LinkedHashMap" %>
+<%@ page import ="java.util.Map" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <% if (ValidationHelper.isNotNull(session.getAttribute("loggedIn"))
@@ -19,11 +21,13 @@
 </head>
 <body>
 	<%
-		DatabaseAccess db = new DatabaseAccess();
-		java.sql.Connection connect = DatabaseAccess.connectDataBase();
-		Statement statement = connect.createStatement();
-		ResultSet departmentList = statement.executeQuery("SELECT department_id,name FROM department");
+		Map<String,String> departmentList = new LinkedHashMap<>();
 		String date = ReportHelper.getCurrentDate();
+		if(request.getAttribute("departmentList") != null){
+			departmentList = (Map<String,String>)request.getAttribute("departmentList");
+		}
+		
+		
 	%>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="container">
@@ -36,15 +40,16 @@
 					<div class="errorMsg">${errorMessageTemplateName }</div>
 					Department<select name="selectDepartment">
 								<option selected disabled hidden>Select Department</option>
-							  	<% while(departmentList.next()) { %>
-								<option value="<%= departmentList.getInt(1) %>">
-									<%= departmentList.getString(2) %>
+							  	<%for(Map.Entry<String,String> entry : departmentList.entrySet()){	%>
+								<option value="<%= entry.getKey() %>">
+									<%= entry.getValue() %>
 								</option>
 								<% } %>	
 						      </select>
 						      <div class="errMsg">${errorMessageDepartment }</div>
 				</div>
 				<hr>
+				
 				<span>2. Section I:   </span><input type="text" name="sectionOne" required>
 				<div id="sectionOneList" class="buildListDiv">
 					<button type="button" id="addCriteria1" >Add Criteria</button>

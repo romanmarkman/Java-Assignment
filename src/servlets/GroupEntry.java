@@ -95,12 +95,12 @@ public class GroupEntry extends HttpServlet {
 			}
 			
 			//Check for at least one employee selected
-			String employee = request.getParameter("employee");
-			if(!ValidationHelper.isNotNullOrEmpty(employee)) {
+			String employee[] = request.getParameterValues("employee");
+			if(!ValidationHelper.isNotNullOrEmpty(employee[0])) {
 				request.setAttribute("employeeError", "Please include at least one employee into the group");
 				formIsValid = false;
 			}
-			else if(ValidationHelper.isNotNullOrEmpty(employee)){
+			else if(ValidationHelper.isNotNullOrEmpty(employee[0])){
 				int count = 0;
 				for(int i=0; i<employee_ids.length; i++){
 					for(int j=i+1; j<employee_ids.length; j++){
@@ -135,46 +135,54 @@ public class GroupEntry extends HttpServlet {
 					
 					//Connect to the DB
 					Connection connect = DatabaseAccess.connectDataBase();
-					
+					Integer groupID = 0;
+					Integer rowsInserted1 = 0;
+					Integer rowsInserted2 = 0;
 					String queryString = "INSERT INTO groups (name, department_id) VALUES "
 							+ "(?, ?)";
 					
-					PreparedStatement pStatement = connect.prepareStatement(queryString);
+					PreparedStatement pStatement = connect.prepareStatement(queryString,Statement.RETURN_GENERATED_KEYS);
 					
 					pStatement.setString(1, group_name.trim());
 					pStatement.setString(2, department_id);
-						Statement statement = connect.createStatement();
-					int rowsInserted = pStatement.executeUpdate();
-					
+					pStatement.execute();
+					ResultSet res = pStatement.getGeneratedKeys();
+					if(res.next()) {
+						groupID = res.getInt(1);
+						rowsInserted1++;
+					}
+					res.close();	
+										
 					String message = "";
-					if(rowsInserted > 0) {
+					if(rowsInserted1 > 0) {
 						message = group_name + " has been added to the database.";
 					}
-					
-					connect.close();
-					
+									
 					//Insert into employee_group table
 					//Compare group name with existing groupname
-					connect = DatabaseAccess.connectDataBase();
+					
 					//queryString = "SELECT group_id FROM groups WHERE name = " + group_name;
 					queryString = "SELECT * FROM groups WHERE name = '" + group_name + "'";
 					Statement st = connect.createStatement();
 					
 					ResultSet resSet = st.executeQuery(queryString);
-					resSet.next();
-					String group_id = resSet.getString(1);
-					
+					String group_id = "";
+					if(resSet.next()) {
+						group_id = resSet.getString(1);
+					}
 					queryString = "INSERT INTO employee_group (employee_id, group_id) VALUES"
 								+ "(?, ?)";
 					pStatement = connect.prepareStatement(queryString);
 					for(int i=0; i<employee_ids.length; i++){
-						pStatement.setString(1, employee_ids[i]);
-						pStatement.setString(2, group_id);
+						pStatement.setInt(1, Integer.parseInt(employee_ids[i]));
+						pStatement.setInt(2, groupID);
+						pStatement.execute();
+						rowsInserted2++;
 					}
-					statement = connect.createStatement();
-					rowsInserted = pStatement.executeUpdate();
+					//statement = connect.createStatement();
 					
-					if(rowsInserted > 0) {
+					
+					if(rowsInserted2 > 0) {
 						request.setAttribute("confirmMessage", message + " \n\nEmployee group has been added to the database.");
 						request.removeAttribute("validGN");
 					}

@@ -25,11 +25,15 @@ public class ReportEntry extends HttpServlet {
     }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Map<String,String> tempList = ReportHelper.getTemplateList();
+		request.setAttribute("templateList", tempList);
 		request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_entry.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Integer tempID;
+		Map<String,String> tempList = ReportHelper.getTemplateList();
+		request.setAttribute("templateList", tempList);
 		if(request.getParameter("formselect").equals("selectTemplate")) {
 						
 			tempID = Integer.parseInt(request.getParameter("selectTemplate"));

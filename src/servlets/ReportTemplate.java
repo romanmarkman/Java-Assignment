@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +37,8 @@ public class ReportTemplate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Map<String,String> depList = ReportHelper.getDepartmentList();
+		request.setAttribute("departmentList", depList);
 		request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_template.jsp").forward(request, response);
 	}
 
@@ -44,6 +47,9 @@ public class ReportTemplate extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
+		Map<String,String> depList = ReportHelper.getDepartmentList();
+		request.setAttribute("departmentList", depList);
+		
 		boolean formIsValid = true;
 		
 		String templateName = request.getParameter("templateName");

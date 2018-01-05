@@ -14,7 +14,8 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="container">
-		<a href="${pageContext.request.contextPath}/department_entry">Add a Department Entry to the Database</a>
+		<a href="${pageContext.request.contextPath}/department_entry">Add a Department Entry to the Database</a><br>
+		<a href="${pageContext.request.contextPath}/department_view">View Departments</a>
 	</div>
 </body>
 </html>
