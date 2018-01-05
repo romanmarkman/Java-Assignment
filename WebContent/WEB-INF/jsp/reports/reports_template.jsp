@@ -17,6 +17,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/jQuery/jquery-3.2.0.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reports.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/modal.css">
 <title><%= title %></title>
 </head>
 <body>
@@ -207,6 +208,37 @@
 				
 			
 		</form>
+		<% String message = (String)request.getAttribute("confirmMessage"); 
+			   if (message != null) { %>
+			<!-- Modal from https://www.w3schools.com/howto/howto_css_modals.asp -->
+			<div id="dialogBox" class ="dialog">
+				<div class="dialogContent centered">
+					<div class="dialogHeader">
+						<span class="close">&times;</span>
+						<h3>New Template Added</h3>
+					</div>
+					<div class="dialogBody">
+						<p>${confirmMessage}</p>
+					</div>
+				</div>
+			</div><%
+			} %>
+		
+			<script>
+				dialog = document.getElementById("dialogBox");
+				var span = document.getElementsByClassName("close")[0];
+				
+				// When the user clicks on <span> (x), close the modal
+				span.onclick = function() {
+				    dialog.style.display = "none";
+				}
+				// When the user clicks anywhere outside of the modal, close it
+				window.onclick = function(event) {
+				    if (event.target == modal) {
+				        dialog.style.display = "none";
+				    }
+				}
+			</script>
 	</div>
 </body>
 </html>

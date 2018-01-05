@@ -83,6 +83,7 @@ public class ReportEntry extends HttpServlet {
 				ReportHelper.insertCriteriaGrade(reportID, sectionOneCriteriaIDs, sectionOneCriteriaValues);
 				ReportHelper.insertCriteriaGrade(reportID, sectionTwoCriteriaIDs, sectionTwoCriteriaValues);
 				ReportHelper.insertCriteriaGrade(reportID, sectionThreeCriteriaIDs, sectionThreeCriteriaValues);
+				request.setAttribute("confirmMessage", reportTitle + " has been created.");
 				request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_entry.jsp").forward(request, response);
 			} else {
 

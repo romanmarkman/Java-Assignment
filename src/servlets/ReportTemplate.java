@@ -107,7 +107,8 @@ public class ReportTemplate extends HttpServlet {
 			ReportHelper.insertSectionCriteria(criteriaIds, sectionThreeId);
 			
 			ReportHelper.insertTemplate(sectionOneId, sectionTwoId, sectionThreeId, templateName, date, Integer.parseInt(department));
-			request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_landing_page.jsp").forward(request, response);	
+			request.setAttribute("confirmMessage", templateName + " has been created.");
+			request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_template.jsp").forward(request, response);	
 		}
 	}
 }
