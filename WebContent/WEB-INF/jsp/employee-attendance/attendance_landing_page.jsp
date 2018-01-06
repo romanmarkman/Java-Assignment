@@ -14,7 +14,8 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="container">
-		<img src="${pageContext.request.contextPath}/images/underconstruction.png">
+		<a href="${pageContext.request.contextPath}/attendance_entry">Enter Attendance</a><br>
+		<a href="${pageContext.request.contextPath}/attendance_view">View Attendance</a>
 	</div>
 </body>
 </html>
