@@ -3,7 +3,7 @@ package objects;
 import java.sql.Date;
 
 public class Employee {
-	
+	private String eId;
 	private String fName;
 	private String lName;
 	private int employeeNum;
@@ -11,14 +11,18 @@ public class Employee {
 	private String email;
 	private String jobPos;
 	
-	public Employee(String firstName, String lastName, int employeeNumber, Date dateOfHire, String Eemail, String jobPosition) {
+	public Employee(String employeeId, String firstName, String lastName, int employeeNumber, Date dateOfHire, String Eemail, String jobPosition) {
 		// TODO Auto-generated constructor stub
+		eId = employeeId;
 		fName = firstName;
 		lName = lastName;
 		employeeNum = employeeNumber;
 		hireDate = dateOfHire;
 		email = Eemail;
 		jobPos = jobPosition;
+	}
+	public String geteId(){
+		return eId;
 	}
 	public String getfName() {
 		return fName;
