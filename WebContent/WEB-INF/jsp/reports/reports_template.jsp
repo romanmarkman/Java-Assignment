@@ -38,7 +38,7 @@
 				<div class="details-div">
 					Report Template Name<input type="text" name="templateName" required>
 					Date<input type="text" name="templateDate" value="<%= date %>" disabled><br>
-					<div class="errorMsg">${errorMessageTemplateName }</div>
+					<div class="errorMsg">${errTemplateName }</div>
 					Department<select name="selectDepartment">
 								<option selected disabled hidden>Select Department</option>
 							  	<%for(Map.Entry<String,String> entry : departmentList.entrySet()){	%>
@@ -47,14 +47,17 @@
 								</option>
 								<% } %>	
 						      </select>
-						      <div class="errMsg">${errorMessageDepartment }</div>
+						      <div class="errorMsg">${errDepartSelect }</div>
 				</div>
 				<hr>
 				
 				<span>2. Section I:   </span><input type="text" name="sectionOne" required>
+				<div class="errorMsg">${errSectionOne }</div>
 				<div id="sectionOneList" class="buildListDiv">
 					<button type="button" id="addCriteria1" >Add Criteria</button>
 					<button type="button" id="removeCriteria1">Undo</button><br><br>
+					<div class="errorMsg">${errCritOne}</div>
+					<div id="critOneEmpty" class="errorMsg" style="display:none;">You have empty criteria</div>
 					<div id="sectionOneChildren">
 						<div>
 							Criteria 1: <input type="text" name="section_1_criteria_name">
@@ -103,9 +106,12 @@
 				</script>
 				<hr>
 				<span>3. Section II:   </span><input type="text" name="sectionTwo" required>
+				<div class="errorMsg">${errSectionTwo }</div>
 				<div id="sectionTwoList" class="buildListDiv">
 					<button type="button" id="addCriteria2">Add Criteria</button>
 					<button type="button" id="removeCriteria2">Undo</button><br><br>
+					<div class="errorMsg">${errCritTwo}</div>
+					<div id="critTwoEmpty" class="errorMsg" style="display:none;">You have empty criteria</div>
 						<div id="sectionTwoChildren">
 							<div>
 								Criteria 1: <input type="text" name="section_2_criteria_name">
@@ -152,9 +158,12 @@
 				</script>
 				<hr>
 				<span>4. Section III: </span><input type="text" name="sectionThree" required>
+				<div class="errorMsg">${errSectionThree }</div>
 				<div id="sectionThreeList"  class="buildListDiv">
 					<button type="button" id="addCriteria3">Add Criteria</button>
 					<button type="button" id="removeCriteria3">Undo</button><br><br>
+					<div class="errorMsg">${errCritThree}</div>
+					<div id="critThreeEmpty" class="errorMsg" style="display:none;">You have empty criteria</div>
 					<div id="sectionThreeChildren">
 						<div >
 							Criteria 1: <input type="text" name="section_3_criteria_name">
@@ -202,12 +211,49 @@
 				</script>
 				<hr>
 				<div class="center-div">
-					<input type="submit" value="Create">
+					<input id="templateSubmit" type="submit" value="Create">
 					<input type="reset" value="Cancel">
 				</div>
 				
 			
 		</form>
+		<script>
+		$(document).ready(function(){
+			$('#templateSubmit').click(function(e){
+				var valid = true;
+				$('input[name=section_1_criteria_name]').each(function(){
+					if($(this).val().trim() == ""){
+						$('#critOneEmpty').show()
+						valid = false;
+					}else{
+						$('#critOneEmpty').hide();
+					}
+				});
+				$('input[name=section_2_criteria_name]').each(function(){
+					if($(this).val().trim() == ""){
+						$('#critTwoEmpty').show()
+						valid = false;
+					}else{
+						$('#critTwoEmpty').hide();
+					}
+				});
+				$('input[name=section_3_criteria_name]').each(function(){
+					if($(this).val().trim() == ""){
+						$('#critThreeEmpty').show()
+						valid = false;
+					}else{
+						$('#critThreeEmpty').hide();
+					}
+				});
+				if(valid == false){
+					e.preventDefault();
+					
+				}
+			});
+		});
+		
+		
+		</script>
 		<% String message = (String)request.getAttribute("confirmMessage"); 
 			   if (message != null) { %>
 			<!-- Modal from https://www.w3schools.com/howto/howto_css_modals.asp -->

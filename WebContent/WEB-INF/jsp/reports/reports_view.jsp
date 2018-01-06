@@ -20,6 +20,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/jQuery/jquery-3.2.0.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reports.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/modal.css">
 <title><%= title %></title>
 </head>
 <body>
@@ -68,6 +69,7 @@
 			if(request.getAttribute("tempID") != null){
 				tempID = (Integer)request.getAttribute("tempID");
 			}
+			
 		}	
 	%>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
@@ -79,7 +81,7 @@
 			<div class="details-div">
 			<input type="hidden" name="formselect" value="selectTemplate">
 						Report Template: <select id="selectTemp" onchange="this.form.submit()" name="selectTemplate">
-											<option selected disabled hidden value=<%=tempID %>>Select Template</option>
+											<option selected disabled hidden value=${tempID }>Select Template</option>
 										  	<%for(Map.Entry<String,String> entry : templateList.entrySet()){	%>
 											<option value="<%= entry.getKey() %>">
 												<%= entry.getValue() %>
@@ -103,7 +105,7 @@
 		<%Integer count = 0; %>
 		<form method="post" action="report_view" name="enterReportForm" >	
 		<input type="hidden" name="formselect" value="selectReport">	
-		<input type="hidden" name="templateIDselect" value="<%=tempID%>">	
+		<input type="hidden" name="templateIDselect" value=${tempID }>	
 				<div class="details-div">								
 					<span>Department</span><select name="selectDepartment">											
 												<%for(String name : departments){ %>					  	
@@ -124,7 +126,9 @@
 		<hr>
 		<%if(request.getAttribute("critValues") != null){ %>
 		<form method="post" action="report_view" name="updateForm">
-		<input type="hidden" name="reportID" value="<% %>">
+		<input type="hidden" name="templateIDselect" value=${tempID }>
+		<input type="hidden" name="formselect" value="updateForm">
+		<input type="hidden" name="reportID" value=${reportID }>
 		<span>1. Details</span>
 		<table class="center-div">
 			<tr>
@@ -206,11 +210,109 @@
 				   </div>
 				</div>	
 		<hr>
-			<div class="center-div">
-<!-- 					<input type="submit" value="Enter"> -->
-<!-- 					<input type="reset" value="Cancel"> -->
-			</div>	
+		<div class="grade-container">
+			<span>Total: </span><span id="grade-counter" class="grade-counter"></span><span id="grade-total"></span>
+		</div>
+		<script>
+			$(document).ready(function(){
+				var section1 = 0;
+				var section2 = 0;
+				var section3 = 0;
+				var total = 0;
+				$('select[name=section_1_criteria_value]').each(function(){
+					total+=5;
+					section1 += parseInt($(this).val());
+				});
+				$('select[name=section_2_criteria_value]').each(function(){
+					total+=5;
+					section2 += parseInt($(this).val());
+				});
+				$('select[name=section_3_criteria_value]').each(function(){
+					total+=5;
+					section3 += parseInt($(this).val());
+				});
+				$('select[name=section_1_criteria_value]').change(function(){
+					section1 = 0;
+					$('select[name=section_1_criteria_value]').each(function(){
+						section1 += parseInt($(this).val());
+					});
+					$('#grade-counter').text(section1 + section2 + section3 );
+				});
+				$('select[name=section_2_criteria_value]').change(function(){
+					section2 = 0;
+					$('select[name=section_2_criteria_value]').each(function(){
+						section2 += parseInt($(this).val());
+					});
+					$('#grade-counter').text(section1 + section2 + section3 );
+				});
+				$('select[name=section_3_criteria_value]').change(function(){
+					section3 = 0;
+					$('select[name=section_3_criteria_value]').each(function(){
+						section3 += parseInt($(this).val());
+					});
+					$('#grade-counter').text(section1 + section2 + section3 );
+				});
+				$('#grade-counter').text(section1 + section2 + section3 );
+				$('#grade-total').text(" / " + total);
+			});
+		
+		</script>
+		<div class="center-div">
+			<input id="editButton" type="submit" value="Edit">
+		</div>		
 		</form>
+		<script>
+			$(document).ready(function(){
+				var editable = false;
+				$('#editButton').click(function(e){
+					if(editable == false){
+						e.preventDefault();
+						$('#editButton').val("Update");
+						$('textarea').each(function(){
+							$(this).removeAttr('disabled',false);
+						});
+						$('form[name=updateForm] select').each(function(){
+							$(this).removeAttr('disabled',false);
+						});
+						editable = true;
+						
+					} else {
+						
+					}
+				});
+			});
+		</script>
+		<% String message = (String)request.getAttribute("confirmMessage"); 
+			   if (message != null) { %>
+			<!-- Modal from https://www.w3schools.com/howto/howto_css_modals.asp -->
+			<div id="dialogBox" class ="dialog">
+				<div class="dialogContent centered">
+					<div class="dialogHeader">
+						<span class="close">&times;</span>
+						<h3>Report Updated</h3>
+					</div>
+					<div class="dialogBody">
+						<p>${confirmMessage}</p>
+					</div>
+				</div>
+			</div><%
+			} %>
+		
+			<script>
+				dialog = document.getElementById("dialogBox");
+				var span = document.getElementsByClassName("close")[0];
+				
+				// When the user clicks on <span> (x), close the modal
+				span.onclick = function() {
+				    dialog.style.display = "none";
+				}
+				// When the user clicks anywhere outside of the modal, close it
+				window.onclick = function(event) {
+				    if (event.target == modal) {
+				        dialog.style.display = "none";
+				    }
+				}
+			</script>
 	</div>
 	</div>
 	<%} %>				

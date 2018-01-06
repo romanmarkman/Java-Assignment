@@ -1,9 +1,9 @@
 /*
 * Project: COMP3095_Insert_Team_Name
-* Assignment:  Assignment 1
+* Assignment:  Assignment 2
 * Author(s): Jeff, Jullian, Roman, Kevin, Andrew
 * Student Number: 100872220, 100998164, 100772900, 101015906, 101035265
-* Date: Oct 20, 2017
+* Date: Dec 29 2017
 * Description: Servlet that handles login page form.
 */
 package servlets;
@@ -151,7 +151,7 @@ public class Login extends HttpServlet {
 				connect.close();
 			} catch (Exception e) {
 				// Error logging to the console.
-				System.err.println("Exception: " + e.getMessage());
+				System.out.println("Exception: " + e.getMessage());
 				
 				// Return the user to the login page as we do not want users seeing exception messages,
 				// nor receiving a blank page due to an error which has occurred in code.

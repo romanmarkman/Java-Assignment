@@ -5,6 +5,8 @@
 <%@ page import ="javax.sql.*" %>
 <%@ page import ="helpers.ValidationHelper" %>
 <%@ page import ="java.util.ArrayList" %>
+<%@ page import ="java.util.LinkedHashMap" %>
+<%@ page import ="java.util.Map" %>
 <%@ page import ="objects.Employee" %>
 
 <% if (ValidationHelper.isNotNull(session.getAttribute("loggedIn"))
@@ -17,17 +19,16 @@
 <title><%= title %></title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/jQuery/jquery-3.2.0.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css"/>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/employee-page.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/employee-page.css"/>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	
 	<%
-		Integer depID = 0;
-		DatabaseAccess db = new DatabaseAccess();
-		java.sql.Connection connect = DatabaseAccess.connectDataBase();
-		Statement statement = connect.createStatement();
-		ResultSet resultSet = statement.executeQuery("Select name from department");
+		Map<String,String> departments = new LinkedHashMap<>();
+		if(request.getAttribute("departments") != null){
+			departments = (Map<String,String>)request.getAttribute("departments");
+		}
 	%>
 	
 	<div id="employee-load-div" class='centered container'>
@@ -36,9 +37,10 @@
 	<h1>Employee Listing</h1>
 		<select name="department">
 			<option selected disabled hidden>Department</option>
-				<% while(resultSet.next()){ %>
-					<option><%= resultSet.getString(1) %></option>
-				<%} %>	
+				<%for(Map.Entry<String,String> entry : departments.entrySet()){	%>
+				<option value="<%=entry.getKey()%>"><%=entry.getValue() %></option>
+				<%} %>
+				
 		</select>
 		<br><div class="errorMsg">${errorMessage8}</div>
 		<br>

@@ -4,12 +4,16 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import ="java.sql.*" %>
 <%@ page import ="javax.sql.*" %>
+<%@ page import ="java.util.Map" %>
+<%@ page import ="java.util.ArrayList" %>
+<%@ page import ="java.util.LinkedHashMap" %>
 <% if (ValidationHelper.isNotNull(session.getAttribute("loggedIn"))
 	   && ((Boolean)session.getAttribute("loggedIn")) == true) { %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%! String title = "Group Entry"; %>
 <html>
 <head>
+<script type="text/javascript" src="${pageContext.request.contextPath}/jQuery/jquery-3.2.0.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/group-page.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/modal.css">
@@ -19,35 +23,50 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<%  //If null in session or the page was loaded for the first time
-		if(session.getAttribute("department_id") != null && !"POST".equalsIgnoreCase(request.getMethod()))
-			session.removeAttribute( "department_id" );
 				
-		HttpSession sess = request.getSession(true);
-		
 		//Conn to DB
-		DatabaseAccess db = new DatabaseAccess();
-		java.sql.Connection connect = DatabaseAccess.connectDataBase();
-		Statement statement = connect.createStatement();
-		ResultSet resultSet = statement.executeQuery("Select department_id, name from department");
 		
-		String department_id = (String)session.getAttribute("department_id");
+		Integer depID = 0;
+		Map<String,String> departments = new LinkedHashMap<>();
+		Map<String,String> employees = new LinkedHashMap<>();
+		
+		if(request.getAttribute("departments") != null){
+			departments = (Map<String,String>)request.getAttribute("departments");
+		}
+		if(request.getAttribute("depID") != null){
+			depID = (Integer)request.getAttribute("depID");
+		}
+		if(request.getAttribute("employees") != null){
+			employees = (Map<String,String>)request.getAttribute("employees");
+		}
+		
 	%>
-	<div id="group-div" class="centered">
-		<form name="GroupSelection" action="group_entry" method="POST" name="GroupEntry" id="groupForm" class="container">
-			<h1>Group Entry</h1>
-			<%//Check for department_id session value %>
-			<%if(department_id == null) { //Check for department_id session value %>
-			<label for="department">Department: </label><select id="department" name="department">
-							<option selected disabled value=none>Select</option>
-						<% while(resultSet.next()){ %>
-							<option value=<%=resultSet.getString(1)%>><%= resultSet.getString(2) %></option>
-						<%} %>	
+	<div id="group-div" class="centered container">
+	<h1>Group Entry</h1>
+		<form id="departmentForm" action="group_entry" method="POST" name="departmentEntry" >
+			<input type="hidden" name="formselect" value="departmentSelect" >
+			<label for="department">Department: </label><select id="departmentS" onchange="this.form.submit()" name="department">
+						<option selected disabled hidden value="<%=depID%>">Select</option>
+						<%for(Map.Entry<String,String> entry : departments.entrySet()){	%>
+						<option value="<%= entry.getKey() %>">
+							<%= entry.getValue() %>
+						</option>
+						<%} %>					
 						</select>
 						<br><div class="errorMsg">${departmentError}</div><br>
-			<% //If department is selected
-				} else { %>
-			
-			<%//Confirmation Message %>
+		</form>	
+		<script>
+		$(document).ready(function(){
+			var id = $('#departmentS option:selected').val();
+			console.log(id);
+			$("#departmentS > option").each(function() {
+			    if($(this).val() == id){
+			    	$('#departmentS:selected').removeAttr("selected");
+			    	$(this).attr("selected","selected");
+			    }
+			});
+		});
+		</script>	 
 				<%
 					String message = (String)request.getAttribute("confirmMessage"); 
 					if(message != null){
@@ -82,68 +101,71 @@
 			    }
 			}
 			</script>
-			<%//Get department name from dep_id %>
-			<% resultSet = statement.executeQuery("Select name from department where department_id = " + department_id);
-			   resultSet.next();%>
-			<label>Department: </label><select disabled>
-							<option selected value=${sessionScope.department_id}><%=resultSet.getString(1) %></option>
-						</select><br><br>
+			<%if(request.getAttribute("employees") != null){ %>
+		<form id="groupForm" action="group_entry" method="post" name="groupEntry">
+			<input type="hidden" name="formselect" value="groupSelect" >
+			<input type="hidden" name="departmentID" value="<%=depID %>" >
 			
-			<%//Get first and last names of all employees with the same department_id %>
-			<% resultSet = statement.executeQuery("Select employee_id, lastname, firstname from employee where department_id = " + department_id); %>
-			
-			Group Name: <input type="text" name="groupName" value="${validGN}"/><br>
+			Group Name: <input type="text" name="groupName" value="${validGN }"/><br>
 			<div class="errorMsg">${groupError}</div><br>
 			
 			<label>Employee 1: </label><select id="emp1" name="employee">
-							<option selected disabled>Select</option>
-						<% 
-						while(resultSet.next()){ %>
-							<option value=<%= resultSet.getString(1) %>><%= resultSet.getString(2) + ", " + resultSet.getString(3) %></option>
-						<%} %>	
+							<option selected disabled hidden value="0">Select</option>
+							<%for(Map.Entry<String,String> entry : employees.entrySet()){	%>
+							<option value="<%= entry.getKey() %>">
+								<%= entry.getValue() %>
+							</option>
+							<%} %>
 						</select>
 			<label>Employee 2: </label><select id="emp2" name="employee">
-							<option selected disabled>Select</option>
-						<%	resultSet.beforeFirst(); 
-						while(resultSet.next()){ %>
-							<option value=<%= resultSet.getString(1) %>><%= resultSet.getString(2) + ", " + resultSet.getString(3) %></option>
-						<%} %>	
+							<option selected disabled hidden value="0">Select</option>
+							<%for(Map.Entry<String,String> entry : employees.entrySet()){	%>
+							<option value="<%= entry.getKey() %>">
+								<%= entry.getValue() %>
+							</option>
+							<%} %>
 						</select>
 			<label>Employee 3: </label><select id="emp3" name="employee">
-							<option selected disabled>Select</option>
-						<%	resultSet.beforeFirst(); 
-						while(resultSet.next()){ %>
-							<option value=<%= resultSet.getString(1) %>><%= resultSet.getString(2) + ", " + resultSet.getString(3) %></option>
-						<%} %>	
+							<option selected disabled hidden value="0">Select</option>
+							<%for(Map.Entry<String,String> entry : employees.entrySet()){	%>
+							<option value="<%= entry.getKey() %>">
+								<%= entry.getValue() %>
+							</option>
+							<%} %>
 						</select><br><br>
 			<label>Employee 4: </label><select id="emp4" name="employee">
-							<option selected disabled>Select</option>
-						<%	resultSet.beforeFirst(); 
-						while(resultSet.next()){ %>
-							<option value=<%= resultSet.getString(1) %>><%= resultSet.getString(2) + ", " + resultSet.getString(3) %></option>
-						<%} %>	
+							<option selected disabled hidden value="0">Select</option>
+							<%for(Map.Entry<String,String> entry : employees.entrySet()){	%>
+							<option value="<%= entry.getKey() %>">
+								<%= entry.getValue() %>
+							</option>
+							<%} %>
 						</select>
 			<label>Employee 5: </label><select id="emp5" name="employee">
-							<option selected disabled>Select</option>
-						<%	resultSet.beforeFirst(); 
-						while(resultSet.next()){ %>
-							<option value=<%= resultSet.getString(1) %>><%= resultSet.getString(2) + ", " + resultSet.getString(3) %></option>
-						<%} %>	
+							<option selected disabled hidden value="0">Select</option>
+							<%for(Map.Entry<String,String> entry : employees.entrySet()){	%>
+							<option value="<%= entry.getKey() %>">
+								<%= entry.getValue() %>
+							</option>
+						    <%} %>
 						</select>
 			<label>Employee 6: </label><select id="emp6" name="employee">
-							<option selected disabled>Select</option>
-						<%	resultSet.beforeFirst(); 
-						while(resultSet.next()){ %>
-							<option value=<%= resultSet.getString(1) %>><%= resultSet.getString(2) + ", " + resultSet.getString(3) %></option>
-						<%} //End of else%>	
+							<option selected disabled hidden value="0">Select</option>
+							<%for(Map.Entry<String,String> entry : employees.entrySet()){	%>
+							<option value="<%= entry.getKey() %>">
+								<%= entry.getValue() %>
+							</option>
+							<%} %>
 						</select><br>
+						
 			<br><div class="errorMsg">${employeeError}</div>
 			<br><div class="errorMsg">${dubError}</div><br>
 			
-			<% } %>
-			<input type="submit" name="depSelection" value="Proceed">
-			<input type="submit" name="Reset" value="Cancel">	
+			
+			<input type="submit"  value="Proceed">
+			<input type="reset"  value="Cancel">	
 		</form>
+		<%} %>
 	</div>
 </body>
 </html>

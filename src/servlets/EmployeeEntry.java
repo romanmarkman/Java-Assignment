@@ -7,6 +7,8 @@
 * Description: Servlet that handles Employee entry form.
 */
 package servlets;
+import helpers.EmployeeHelper;
+import helpers.ReportHelper;
 import helpers.ValidationHelper;
 import java.io.IOException;
 
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import utilities.DatabaseAccess;
 import java.sql.*;
+import java.util.Map;
 
 /**
  * Servlet implementation class EmployeeEntryServlet
@@ -38,6 +41,8 @@ public class EmployeeEntry extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Map<String,String> departments = ReportHelper.getDepartmentList();
+		request.setAttribute("departments", departments);
 		request.getRequestDispatcher("/WEB-INF/jsp/employee/employee_entry_form.jsp").forward(request, response);
 	}
 
@@ -47,6 +52,8 @@ public class EmployeeEntry extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//	!!Need to make helper method for validation and make form maintain valid inputs!!
 		response.setContentType("text/html");
+		Map<String,String> departments = ReportHelper.getDepartmentList();
+		request.setAttribute("departments", departments);
 		boolean formIsValid = true;
 		
 		// Getting the employee first name input
@@ -132,50 +139,16 @@ public class EmployeeEntry extends HttpServlet {
 			return;
 		} else {
 			// Connect to MySQL database
-			try {
-				Connection connect = DatabaseAccess.connectDataBase();
-				
-				// INSERT query
-				String queryString = "INSERT INTO employee (firstname, lastname, employee_number, email, hire_date, job_position, department_id) VALUES "
-						+ "(?, ?, ?, ?, ?, ?, ?)";
-				
-				// Preparing insert statement using preparedStatement
-				PreparedStatement stmt = connect.prepareStatement(queryString);
-				stmt.setString(1, firstName);
-				stmt.setString(2, lastName);
-				stmt.setString(3, employeeNumber);
-				stmt.setString(4, email);
-				
-				
-				// Set hireDate in database to 1st day of january for whatever year is selected
-				stmt.setDate(5, java.sql.Date.valueOf(hireYr + "-01-01"));
-				stmt.setString(6, jobPos);
-				
-				// Change selected department name to its corresponding id.
-				Statement statement = connect.createStatement();
-				ResultSet idResult = statement.executeQuery("Select department_id from department where name = '" + department + "'");
-				if(idResult.next()) {
-					int departmentId = idResult.getInt("department_id");
-					stmt.setInt(7, departmentId);
-				}
-				
-				// Pass confirmMessage to page and load dialog if not null
-				int rowsInserted = stmt.executeUpdate();
-				if(rowsInserted > 0) {
-					request.setAttribute("confirmMessage", firstName + " " + lastName + " has been added to the database.");
-					// Remove attributes to reset form
-					request.removeAttribute("validFN");
-					request.removeAttribute("validLN");
-					request.removeAttribute("validEN");
-					request.removeAttribute("validEmail");
-				}
-				connect.close();
-				
-				request.getRequestDispatcher("/WEB-INF/jsp/employee/employee_entry_form.jsp").forward(request, response);
-				return;	
-			} catch (Exception e) {
-				System.err.println("Exception: " + e.getMessage());
+			if(EmployeeHelper.insertEmployee(firstName, lastName, employeeNumber, email, hireYr, jobPos, department)) {
+				request.setAttribute("confirmMessage", firstName + " " + lastName + " has been added to the database.");
+				// Remove attributes to reset form
+				request.removeAttribute("validFN");
+				request.removeAttribute("validLN");
+				request.removeAttribute("validEN");
+				request.removeAttribute("validEmail");
 			}
+			request.getRequestDispatcher("/WEB-INF/jsp/employee/employee_entry_form.jsp").forward(request, response);
+			return;	
 		}
 	}
 }

@@ -1,3 +1,11 @@
+/*
+* Project: COMP3095_Insert_Team_Name
+* Assignment:  Assignment 2
+* Author(s): Jeff, Jullian, Roman, Kevin, Andrew
+* Student Number: 100872220, 100998164, 100772900, 101015906, 101035265
+* Date: Dec 29 2017
+* Description: Servlet that handles Viewing reports
+*/
 package servlets;
 
 import java.io.IOException;
@@ -46,8 +54,7 @@ public class ReportsView extends HttpServlet {
 		Integer reportID = 0;
 		Map<String,String> tempList = ReportHelper.getTemplateList();
 		request.setAttribute("templateList", tempList);
-		
-		
+		//If switch for the forms. This one handles template selection	
 		if(request.getParameter("formselect").equals("selectTemplate")) {
 			tempID = Integer.parseInt(request.getParameter("selectTemplate"));
 			Map<String,String> reports = ReportHelper.getReportTitle(tempID);
@@ -59,6 +66,7 @@ public class ReportsView extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_view.jsp").forward(request, response);
 			
 		}
+		//handles report selection form.
 		if(request.getParameter("formselect").equals("selectReport")) {
 			if(request.getParameter("reports") == null) {
 				request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_view.jsp").forward(request, response);
@@ -66,8 +74,37 @@ public class ReportsView extends HttpServlet {
 			tempID = Integer.parseInt(request.getParameter("templateIDselect"));
 			reportID = Integer.parseInt(request.getParameter("reports"));
 			getFormData(request,response,tempID,reportID);
+			request.setAttribute("reportID", reportID);
 			
-			
+			request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_view.jsp").forward(request, response);
+		}
+		//handles update form.
+		if(request.getParameter("formselect").equals("updateForm")) {
+			reportID = Integer.parseInt(request.getParameter("reportID"));
+			tempID = Integer.parseInt(request.getParameter("templateIDselect"));
+			//Get comments and criteria grades.
+			String sectionOneCom 				= request.getParameter("section_1_comment");
+			String sectionTwoCom 				= request.getParameter("section_2_comment");
+			String sectionThreeCom 				= request.getParameter("section_3_comment");
+			String[] sectionOneCriteriaIDs 		= request.getParameterValues("section_1_criteria_id");
+			String[] sectionTwoCriteriaIDs 		= request.getParameterValues("section_2_criteria_id");
+			String[] sectionThreeCriteriaIDs 	= request.getParameterValues("section_3_criteria_id");
+			String[] sectionOneCriteriaValues 	= request.getParameterValues("section_1_criteria_value");
+			String[] sectionTwoCriteriaValues 	= request.getParameterValues("section_2_criteria_value");
+			String[] sectionThreeCriteriaValues = request.getParameterValues("section_3_criteria_value");
+			//get report details for this report.
+			ArrayList<String> reportDetails = ReportHelper.getReportDetails(reportID);
+			//update all fields.
+			ReportHelper.updateCriteriaGrade(reportID, sectionOneCriteriaValues, sectionOneCriteriaIDs);
+			ReportHelper.updateCriteriaGrade(reportID, sectionTwoCriteriaValues, sectionTwoCriteriaIDs);
+			ReportHelper.updateCriteriaGrade(reportID, sectionThreeCriteriaValues, sectionThreeCriteriaIDs);
+			ReportHelper.updateReportComments(reportID, sectionOneCom, 1);
+			ReportHelper.updateReportComments(reportID, sectionTwoCom, 2);
+			ReportHelper.updateReportComments(reportID, sectionThreeCom, 3);
+			//get current form data for postback.
+			getFormData(request,response,tempID,reportID);
+			request.setAttribute("reportID", reportID);
+			request.setAttribute("confirmMessage", reportDetails.get(1) + " has been successfully updated." );
 			request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_view.jsp").forward(request, response);
 		}
 		

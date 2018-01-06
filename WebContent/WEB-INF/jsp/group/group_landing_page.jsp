@@ -14,7 +14,7 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="container">
-		<a href="${pageContext.request.contextPath}/group_entry">Add a Group Entry to the Database</a>
+		<a href="${pageContext.request.contextPath}/group_entry">Add a Group Entry to the Database</a><br>
 		<a href="${pageContext.request.contextPath}/group_view">View Groups</a>
 	</div>
 </body>

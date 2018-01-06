@@ -4,6 +4,8 @@
 <%@ page import ="java.sql.*" %>
 <%@ page import ="javax.sql.*" %>
 <%@ page import ="helpers.ValidationHelper" %>
+<%@ page import ="java.util.LinkedHashMap" %>
+<%@ page import ="java.util.Map" %>
 <% if (ValidationHelper.isNotNull(session.getAttribute("loggedIn"))
 	   && ((Boolean)session.getAttribute("loggedIn")) == true) { %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,10 +24,11 @@
 	<!-- Database connection and running Query to populate the department need a way to have 1 class connect -->
 	<!-- Need to fix "java.lang.IllegalStateException: Cannot forward after response has been committed" issues -->
 	<%
-		DatabaseAccess db = new DatabaseAccess();
-		java.sql.Connection connect = DatabaseAccess.connectDataBase();
-		Statement statement = connect.createStatement();
-		ResultSet resultSet = statement.executeQuery("Select name from department");
+		Map<String,String> departments = new LinkedHashMap<>();
+		if(request.getAttribute("departments") != null){
+			departments = (Map<String,String>)request.getAttribute("departments");
+		}
+		
 	%>
 	
 	<div id="employee-entry-div" class='centered'>
@@ -104,10 +107,10 @@
 			
 			<select name="department">
 				<option selected disabled hidden>Department</option>
-	
-				<% while(resultSet.next()){ %>
-					<option><%= resultSet.getString(1) %></option>
-				<%} %>	
+				<%for(Map.Entry<String,String> entry : departments.entrySet()){	%>
+				<option value="<%=entry.getKey()%>"><%=entry.getValue() %></option>
+				<%} %>
+				
 			</select>
 			<br><div class="errorMsg">${errorMessage7}</div>
 			<br>

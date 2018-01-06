@@ -15,8 +15,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><%= title %></title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/employee-page.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css"/>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/employee-page.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
@@ -27,7 +27,7 @@
 	<div class="container">
 	<h1>Department Listing</h1>				
 	<div class="overflow">	
-	<table>
+	<table class="tableData">
 		  <tr>
 		    <th>Department Name</th>
 		    <th>Department Location/Floor</th>

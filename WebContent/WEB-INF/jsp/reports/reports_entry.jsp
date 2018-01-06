@@ -18,8 +18,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script type="text/javascript" src="${pageContext.request.contextPath}/jQuery/jquery-3.2.0.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reports.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/modal.css">
 <title><%= title %></title>
 </head>
@@ -82,7 +82,6 @@
 		<script>
 		$(document).ready(function(){
 			var id = $('#selectTemp option:selected').val();
-			console.log(id);
 			$("#selectTemp > option").each(function() {
 			    if($(this).val() == id){
 			    	$('#selectTemp:selected').removeAttr("selected");
@@ -105,7 +104,7 @@
 					<span>Report Title</span><input type="text" name="reportTitle">
 					<span>Date</span><input type="date" name="reportDate" >
 					<div>
-						<span>Report Type</span>
+						<div>Report Type</div>
 						<input type="radio" id="groupSelect" name="reportType" value="group">Group<br>
 						<input type="radio" id="employeeSelect" name="reportType" value="employee" checked>Employee
 					</div>
@@ -209,11 +208,59 @@
 				   </div>
 				</div>	
 		<hr>
+		<div class="clearfix"></div>
+		<div class="grade-container">
+			<span>Total: </span><span id="grade-counter" class="grade-counter"></span><span id="grade-total"></span>
+		</div>
 			<div class="center-div">
 					<input type="submit" value="Enter">
 					<input type="reset" value="Cancel">
 			</div>	
 		</form>
+		<script>
+			$(document).ready(function(){
+				var section1 = 0;
+				var section2 = 0;
+				var section3 = 0;
+				var total = 0;
+				$('select[name=section_1_criteria_value]').each(function(){
+					total+=5;
+					section1 += parseInt($(this).val());
+				});
+				$('select[name=section_2_criteria_value]').each(function(){
+					total+=5;
+					section2 += parseInt($(this).val());
+				});
+				$('select[name=section_3_criteria_value]').each(function(){
+					total+=5;
+					section3 += parseInt($(this).val());
+				});
+				$('select[name=section_1_criteria_value]').change(function(){
+					section1 = 0;
+					$('select[name=section_1_criteria_value]').each(function(){
+						section1 += parseInt($(this).val());
+					});
+					$('#grade-counter').text(section1 + section2 + section3 );
+				});
+				$('select[name=section_2_criteria_value]').change(function(){
+					section2 = 0;
+					$('select[name=section_2_criteria_value]').each(function(){
+						section2 += parseInt($(this).val());
+					});
+					$('#grade-counter').text(section1 + section2 + section3 );
+				});
+				$('select[name=section_3_criteria_value]').change(function(){
+					section3 = 0;
+					$('select[name=section_3_criteria_value]').each(function(){
+						section3 += parseInt($(this).val());
+					});
+					$('#grade-counter').text(section1 + section2 + section3 );
+				});
+				$('#grade-counter').text(section1 + section2 + section3 );
+				$('#grade-total').text(" / " + total);
+			});
+		
+		</script>
 		</div>
 		</div>
 	<%} %>			

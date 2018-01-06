@@ -1,3 +1,11 @@
+/*
+* Project: COMP3095_Insert_Team_Name
+* Assignment:  Assignment 2
+* Author(s): Jeff, Jullian, Roman, Kevin, Andrew
+* Student Number: 100872220, 100998164, 100772900, 101015906, 101035265
+* Date: Dec 29 2017
+* Description: Servlet that handles Report entry
+*/
 package servlets;
 
 import java.io.IOException;
@@ -34,6 +42,7 @@ public class ReportEntry extends HttpServlet {
 		Integer tempID;
 		Map<String,String> tempList = ReportHelper.getTemplateList();
 		request.setAttribute("templateList", tempList);
+		//conditional for handling template selection form
 		if(request.getParameter("formselect").equals("selectTemplate")) {
 						
 			tempID = Integer.parseInt(request.getParameter("selectTemplate"));
@@ -41,14 +50,17 @@ public class ReportEntry extends HttpServlet {
 			
 			request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_entry.jsp").forward(request, response);
 		}
+		//handles enter report form
 		if(request.getParameter("formselect").equals("enterReport")) {
 			tempID = Integer.parseInt(request.getParameter("templateIDselect"));
 			String reportTarget = "";
+			//Selects Group selected name or Employee Selected name.
 			if(request.getParameter("reportType").equals("group")) {
 				reportTarget = request.getParameter("selectGroup");
 			}else {
 				reportTarget = request.getParameter("selectEmployee");
 			}
+			//get all form values.
 			String reportTitle 					= request.getParameter("reportTitle");
 			String reportDate 					= request.getParameter("reportDate");
 			String sectionOneCom 				= request.getParameter("section_1_comment");
@@ -60,17 +72,9 @@ public class ReportEntry extends HttpServlet {
 			String[] sectionOneCriteriaValues 	= request.getParameterValues("section_1_criteria_value");
 			String[] sectionTwoCriteriaValues 	= request.getParameterValues("section_2_criteria_value");
 			String[] sectionThreeCriteriaValues = request.getParameterValues("section_3_criteria_value");
-			for(String com : sectionOneCriteriaValues) {
-				System.out.println("Section 1: " + com);
-			}
-			for(String com : sectionTwoCriteriaValues) {
-				System.out.println("Section 2: " + com);
-			}
-			for(String com : sectionThreeCriteriaValues) {
-				System.out.println("Section 3: " + com);
-			}
-			Boolean formValid = true;
 			
+			Boolean formValid = true;
+			//basic textfield checks
 			if(reportTitle.trim().equals("") ) {
 				formValid = false;
 			}
@@ -91,10 +95,9 @@ public class ReportEntry extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/jsp/reports/reports_entry.jsp").forward(request, response);
 			}
 		}
-			
-		
+				
 	}
-	
+	//get all form data for postback.
 	private void getFormData(HttpServletRequest request, HttpServletResponse response, Integer tempID) {
 		ArrayList<String> departments 	= ReportHelper.getTemplateDepartments(tempID);
 		ArrayList<String> sectionNames 	= ReportHelper.getSectionNames(tempID);

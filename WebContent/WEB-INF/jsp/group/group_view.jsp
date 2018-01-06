@@ -18,9 +18,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script type="text/javascript" src="${pageContext.request.contextPath}/jQuery/jquery-3.2.0.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/group-page.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/modal.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/group-page.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/modal.css"/>
 <title>Group View</title>
 </head>
 <body>
