@@ -69,9 +69,10 @@ public final class EmployeeHelper {
 			ArrayList<Employee> employeeList = new ArrayList<>();
 			while(rs.next()) {
 				
-				Employee employee = new Employee(rs.getString("employee_id"), rs.getString("firstname"),   rs.getString("lastname"),
+				Employee employee = new Employee(rs.getString("firstname"),   rs.getString("lastname"),
 												 rs.getInt("employee_number"),rs.getDate("hire_date"),
-												 rs.getString("email"),       rs.getString("job_position"));
+												 rs.getString("email"),       rs.getString("job_position"),
+												 rs.getInt("employee_id"));
 				employees.add(employee);
 			}
 			rs.close();

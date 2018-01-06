@@ -3,25 +3,27 @@ package objects;
 import java.sql.Date;
 
 public class Employee {
-	private String eId;
+	
 	private String fName;
 	private String lName;
 	private int employeeNum;
 	private Date hireDate;
 	private String email;
 	private String jobPos;
+	private Integer eId;
 	
-	public Employee(String employeeId, String firstName, String lastName, int employeeNumber, Date dateOfHire, String Eemail, String jobPosition) {
+	
+	public Employee(String firstName, String lastName, int employeeNumber, Date dateOfHire, String Eemail, String jobPosition, Integer eId) {
 		// TODO Auto-generated constructor stub
-		eId = employeeId;
 		fName = firstName;
 		lName = lastName;
 		employeeNum = employeeNumber;
 		hireDate = dateOfHire;
 		email = Eemail;
 		jobPos = jobPosition;
+		this.eId = eId;
 	}
-	public String geteId(){
+	public Integer geteId() {
 		return eId;
 	}
 	public String getfName() {

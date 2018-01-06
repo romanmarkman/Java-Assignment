@@ -51,25 +51,61 @@ public class AttendanceEntry extends HttpServlet {
 		request.setAttribute("departments", departments);
 		
 		Integer depID = 0;
+		
 		boolean formIsValid = true;
-		String departmentId = request.getParameter("department");
-		
-		if (!ValidationHelper.isNotNullOrEmpty(departmentId)) {
-			// Set error message letting user know to select a option
-			request.setAttribute("errorMessage", "Please select a department");
-			formIsValid = false;
-		}	
-		
-		if (formIsValid == false) {
-			request.getRequestDispatcher("/WEB-INF/jsp/employee-attendance/attendance_entry.jsp").forward(request, response);
-			return;
-		} else {
+		if(request.getParameter("formselect").equals("selectDepartment")) {
+			String departmentId = request.getParameter("department");
+			 depID = Integer.parseInt(request.getParameter("department"));
 			
-			// Connect to MySQL database
-			ArrayList<Employee> employee = EmployeeHelper.getEmployees(departmentId);
-			request.setAttribute("employeeL", employee);
-			request.getRequestDispatcher("/WEB-INF/jsp/employee-attendance/attendance_entry.jsp").forward(request, response);
+			if (!ValidationHelper.isNotNullOrEmpty(departmentId)) {
+				// Set error message letting user know to select a option
+				request.setAttribute("errorMessage", "Please select a department");
+				formIsValid = false;
+			}	
+			
+			if (formIsValid == false) {
+				request.getRequestDispatcher("/WEB-INF/jsp/employee-attendance/attendance_entry.jsp").forward(request, response);
+				return;
+			} else {
+				
+				// Connect to MySQL database
+				ArrayList<Employee> employee = EmployeeHelper.getEmployees(departmentId);
+				request.setAttribute("employeeL", employee);
+				request.setAttribute("depID", depID);
+				request.getRequestDispatcher("/WEB-INF/jsp/employee-attendance/attendance_entry.jsp").forward(request, response);
+			}
 		}
+		if(request.getParameter("reportDate") != null){
+			formIsValid = ValidationHelper.dateValidation(request.getParameter("reportDate"));
+			if(formIsValid == false){
+				request.setAttribute("invalidDate", "This is not a valid date, please try again");
+				request.getRequestDispatcher("/WEB-INF/jsp/employee-attendance/attendance_entry.jsp").forward(request, response);
+			}
+		}
+		
+		if (formIsValid == true){
+			if(request.getParameter("formselect").equals("enterAttendance")) {
+				
+				if(request.getParameter("present") != null){
+					String departmentId = request.getParameter("departmentID");
+					String date = request.getParameter("reportDate");
+					ArrayList<Employee> employee = EmployeeHelper.getEmployees(departmentId);
+					depID = Integer.parseInt(request.getParameter("departmentID"));
+					String[] present = request.getParameterValues("present");
+					AttendanceHelper.insertAttendance(present, employee, depID, date);
+					request.setAttribute("employeeL", employee);
+					request.setAttribute("depID", depID);
+					request.setAttribute("confirmMessage", " Attendance sheet has been submitted.");
+					request.getRequestDispatcher("/WEB-INF/jsp/employee-attendance/attendance_entry.jsp").forward(request, response);
+				}
+				else
+				{
+					request.setAttribute("noBueno", "No employees were selected, please check off at least one employee");
+					request.getRequestDispatcher("/WEB-INF/jsp/employee-attendance/attendance_entry.jsp").forward(request, response);
+				}
+			}
+		}
+		
 
 	}
 

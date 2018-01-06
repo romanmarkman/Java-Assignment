@@ -69,4 +69,8 @@ public final class ValidationHelper {
 		}
 		return true;
 	}
+  	
+	public static boolean dateValidation(String date){
+		return date.matches( "[0-9]{2}/[0-9]{2}/[0-9]{4}" );
+	}
 }
